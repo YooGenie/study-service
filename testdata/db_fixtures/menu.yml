@@ -1,0 +1,11 @@
+
+  - id: 18
+    name: "떡볶이"
+    price: 3000
+    description: "매콤달콤하다"
+    created_at: RAW=datetime('now')
+    created_by: "1@naver.com"
+    updated_at: RAW=datetime('now')
+    updated_by: "1@naver.com"
+
+
