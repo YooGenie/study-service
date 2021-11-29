@@ -133,8 +133,8 @@ func (MenuController) Delete(ctx echo.Context) error {
 	err = services.MenuService().DeleteMenu(ctx.Request().Context(), menuId)
 	if err != nil {
 		log.Errorf("Delete Error:  %s", err.Error())
-		if err == common.ErrAuthorization {
-			return ctx.JSON(http.StatusInternalServerError, common.APIErrorAuthorization)
+		if err == common.ErrAuthorization { 
+			return ctx.JSON(http.StatusInternalServerError, common.ErrAuthorization)
 		}
 		return ctx.JSON(http.StatusInternalServerError, dtos.ApiError{
 			Message: err.Error(),
