@@ -2,9 +2,9 @@ package handler
 
 import (
 	"fmt"
-	errors "menu-service/common"
+	errors2 "menu-service/common/errors"
 	"menu-service/config"
-	requestDto "menu-service/dtos"
+	"menu-service/dto/request"
 	"net"
 	"net/http"
 	"os"
@@ -46,10 +46,10 @@ func HandleErrorResponse(err error) (code int, message interface{}) {
 			errorMessage = append(errorMessage, fmt.Sprintf("%s:%s", e.StructNamespace(), errorType))
 		}
 		code = http.StatusBadRequest
-		message = errors.ErrorResponseWrapper{Code: 10007, Message: strings.Join(errorMessage, "\n")}
-	} else if ae, ok := err.(*errors.ApiError); ok {
+		message = errors2.ErrorResponseWrapper{Code: 10007, Message: strings.Join(errorMessage, "\n")}
+	} else if ae, ok := err.(*errors2.ApiError); ok {
 		code = ae.Code
-		message = errors.ErrorResponseWrapper{Code: ae.ErrorCode, Message: ae.Error()}
+		message = errors2.ErrorResponseWrapper{Code: ae.ErrorCode, Message: ae.Error()}
 	} else if he, ok := err.(*echo.HTTPError); ok {
 		code = he.Code
 		message = he.Message
@@ -100,7 +100,7 @@ func CustomHTTPErrorHandler(err error, c echo.Context) {
 	c.JSON(code, message)
 }
 
-func NewErrorLog(req *http.Request) requestDto.ErrorLog {
+func NewErrorLog(req *http.Request) dto.ErrorLog {
 	serviceName := config.Config.Service.Name
 	realIP := req.RemoteAddr
 	if ip := req.Header.Get(HeaderXForwardedFor); ip != "" {
@@ -123,7 +123,7 @@ func NewErrorLog(req *http.Request) requestDto.ErrorLog {
 		params[k] = v[0]
 	}
 
-	c := requestDto.ErrorLog{
+	c := dto.ErrorLog{
 		Service:       serviceName,
 		Timestamp:     time.Now(),
 		RemoteIP:      realIP,

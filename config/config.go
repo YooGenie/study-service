@@ -58,7 +58,7 @@ func ConfigureEnvironment(path string, env ...string) {
 // 서비스별 처리 로직이 달라지는 부분.
 func afterPropertiesSet(properties map[string]string) {
 
-	if properties["SHARING_PLATFORM_DB_PASSWORD"] != "" {
+	if properties["STUDY_GENIE_DB_PASSWORD"] != "" {
 		Config.Database.ConnectionString = fmt.Sprintf("%s:%s%s", Config.Database.User, properties["SHARING_PLATFORM_DB_PASSWORD"], Config.Database.Connection)
 	} else {
 		Config.Database.ConnectionString = Config.Database.Connection

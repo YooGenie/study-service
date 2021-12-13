@@ -1,10 +1,10 @@
-package repositories
+package repository
 
 import (
 	"context"
 	"menu-service/common"
-	"menu-service/dtos"
-	"menu-service/entities"
+	"menu-service/dto/response"
+	"menu-service/menu/entity"
 	"sync"
 )
 
@@ -26,7 +26,7 @@ type menuRepository struct {
 }
 
 //데이터삽입부분
-func (menuRepository) Create(ctx context.Context, menu *entities.Menu) error {
+func (menuRepository) Create(ctx context.Context, menu *entity.Menu) error {
 	db := common.GetDB(ctx)
 	_, err := db.Insert(menu)
 	if err != nil {
@@ -36,8 +36,8 @@ func (menuRepository) Create(ctx context.Context, menu *entities.Menu) error {
 	return nil
 }
 
-func (menuRepository) FindById(ctx context.Context, Id int64) (entities.Menu, error) {
-	var menu = entities.Menu{Id: Id}
+func (menuRepository) FindById(ctx context.Context, Id int64) (entity.Menu, error) {
+	var menu = entity.Menu{Id: Id}
 	_, err := common.GetDB(ctx).Get(&menu)
 	if err != nil {
 		return menu, err
@@ -46,7 +46,7 @@ func (menuRepository) FindById(ctx context.Context, Id int64) (entities.Menu, er
 	return menu, nil
 }
 
-func (menuRepository) FindAll(ctx context.Context, pageable dtos.Pageable) (menu []entities.Menu, totalCount int64, err error) {
+func (menuRepository) FindAll(ctx context.Context, pageable response.Pageable) (menu []entity.Menu, totalCount int64, err error) {
 	db := common.GetDB(ctx)
 	offset := (pageable.Page - 1) * pageable.PageSize
 
@@ -60,7 +60,7 @@ func (menuRepository) FindAll(ctx context.Context, pageable dtos.Pageable) (menu
 	return menu, totalCount, nil
 }
 
-func (menuRepository) Update(ctx context.Context, menu *entities.Menu) error {
+func (menuRepository) Update(ctx context.Context, menu *entity.Menu) error {
 	session := common.GetDB(ctx).ID(menu.Id)
 
 	if _, err := session.Update(menu); err != nil {
@@ -70,7 +70,7 @@ func (menuRepository) Update(ctx context.Context, menu *entities.Menu) error {
 	return nil
 }
 
-func (menuRepository) Delete(ctx context.Context, menu *entities.Menu) error {
+func (menuRepository) Delete(ctx context.Context, menu *entity.Menu) error {
 	session := common.GetDB(ctx).ID(menu.Id)
 
 	if _, err := session.Delete(menu); err != nil {

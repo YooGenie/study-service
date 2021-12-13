@@ -1,4 +1,4 @@
-package dtos
+package response
 
 type ApiError struct {
 	Code    int         `json:"code"`

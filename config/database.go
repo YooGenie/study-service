@@ -27,7 +27,7 @@ func ConfigureDatabase() DatabaseWrapper {
 	xormDb.SetMaxIdleConns(5)
 	xormDb.SetConnMaxLifetime(10 * time.Minute)
 
-	//xormDb.ShowSQL(Config.Log.ShowSql)
+	xormDb.ShowSQL(Config.Log.ShowSql)
 	xormDb.Logger().SetLevel(core.LOG_INFO)
 
 	return DatabaseWrapper{xormDb}

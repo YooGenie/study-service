@@ -20,7 +20,7 @@ func main() {
 	e.GET("/", func(c echo.Context) error { return c.NoContent(http.StatusOK) })
 	e.Use(handler.CreateDatabaseContext(xormDb))
 	//e.Use(handler.InitUserClaimMiddleware())
-	e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
+	//e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
 
 	controllers.MenuController{}.Init(e.Group("/api/menu"))
 

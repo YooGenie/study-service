@@ -1,4 +1,4 @@
-package dtos
+package response
 
 import (
 	"github.com/labstack/echo"
