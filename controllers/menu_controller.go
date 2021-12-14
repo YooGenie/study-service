@@ -6,6 +6,7 @@ import (
 	"menu-service/common/errors"
 	requestDto "menu-service/dto/request"
 	"menu-service/menu/service"
+	"strconv"
 
 	"net/http"
 )
@@ -15,14 +16,14 @@ type MenuController struct {
 
 func (controller MenuController) Init(g *echo.Group) {
 	g.POST("", controller.Create)
-	g.GET("/:Id", controller.GetMenuById)
+	g.GET("/:id", controller.GetMenuById)
 	g.GET("", controller.GetMenu)
-	g.PUT("/:Id", controller.Update)
-	g.DELETE("/:Id", controller.Delete)
+	g.PUT("/:id", controller.Update)
+	g.DELETE("/:id", controller.Delete)
 }
 
 func (MenuController) Create(ctx echo.Context) error {
-	var menuCreate= requestDto.MenuCreate{}
+	var menuCreate = requestDto.MenuCreate{}
 
 	if err := ctx.Bind(&menuCreate); err != nil {
 		return errors.ApiParamValidError(err)
@@ -43,23 +44,18 @@ func (MenuController) Create(ctx echo.Context) error {
 }
 
 func (MenuController) GetMenuById(ctx echo.Context) error {
-	//menuId, _ := strconv.ParseInt(ctx.Param("Id"), 10, 64)
-	//
-	//menu, _ := services.MenuService().GetMenuById(ctx.Request().Context(), menuId)
-	//
-	//menuSummary := dto2.MenuSummary{
-	//	Id:          menu.Id,
-	//	Name:        menu.Name,
-	//	Price:       menu.Price,
-	//	CreatedBy:   menu.CreatedBy,
-	//	CreatedAt:   menu.CreatedAt,
-	//	UpdatedBy:   menu.UpdatedBy,
-	//	UpdatedAt:   menu.UpdatedAt,
-	//	Description: menu.Description,
-	//}
+	menuId, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		return errors.ApiParamValidError(err)
+	}
 
-	//return ctx.JSON(http.StatusOK, menuSummary)
-	return nil
+	menu, _ := service.MenuService().GetMenuById(ctx.Request().Context(), menuId)
+	if err != nil {
+		return err
+	}
+
+	return ctx.JSON(http.StatusOK, menu)
+
 }
 
 func (MenuController) GetMenu(ctx echo.Context) error {

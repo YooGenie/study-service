@@ -8,13 +8,20 @@ import (
 	"menu-service/config/handler"
 	"menu-service/controllers"
 	"net/http"
+	"os"
 )
 
 func main() {
 	config.ConfigureEnvironment("./",  "STUDY_GENIE_DB_PASSWORD")
 	xormDb := config.ConfigureDatabase()
 	config.ConfigureLogger()
-
+	// 이부분이 없으니까 500번 에러가 뜬다. 이유 찾아보기!
+	defer func() {
+		if r := recover(); r != nil {
+			log.Errorln("Panic: %v", r)
+			os.Exit(1)
+		}
+	}()
 	e := config.ConfigureEcho()
 
 	e.GET("/", func(c echo.Context) error { return c.NoContent(http.StatusOK) })
@@ -24,6 +31,6 @@ func main() {
 
 	controllers.MenuController{}.Init(e.Group("/api/menu"))
 
-	log.Info("Study Service Server Started: Port=" + config.Config.HttpPort)
+	log.Info("study Service Server Started: Port=" + config.Config.HttpPort)
 	e.Start(":" + config.Config.HttpPort)
 }

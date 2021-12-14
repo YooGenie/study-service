@@ -38,8 +38,15 @@ func (menuService) CreateMenu(ctx context.Context, creation requestDto.MenuCreat
 
 }
 
-func (menuService) GetMenuById(ctx context.Context, Id int64) (entity.Menu, error) {
-	return repository.MenuRepository().FindById(ctx, Id)
+func (menuService) GetMenuById(ctx context.Context, Id int64) (menuSummary response.MenuSummary, err error) {
+	campaign, err := repository.MenuRepository().FindById(ctx, Id)
+	if err != nil {
+		return
+	}
+
+	menuSummary = mapper.MakeMenuSummary(campaign)
+
+	return
 }
 
 func (menuService) GetMenu(ctx context.Context, pageable response.Pageable) ([]entity.Menu, int64, error) {

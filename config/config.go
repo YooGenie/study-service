@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/jinzhu/configor"
 	"github.com/sirupsen/logrus"
-	"os"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"os"
 )
 
 const (
@@ -59,7 +59,7 @@ func ConfigureEnvironment(path string, env ...string) {
 func afterPropertiesSet(properties map[string]string) {
 
 	if properties["STUDY_GENIE_DB_PASSWORD"] != "" {
-		Config.Database.ConnectionString = fmt.Sprintf("%s:%s%s", Config.Database.User, properties["SHARING_PLATFORM_DB_PASSWORD"], Config.Database.Connection)
+		Config.Database.ConnectionString = fmt.Sprintf("%s:%s%s", Config.Database.User, properties["STUDY_GENIE_DB_PASSWORD"], Config.Database.Connection)
 	} else {
 		Config.Database.ConnectionString = Config.Database.Connection
 	}

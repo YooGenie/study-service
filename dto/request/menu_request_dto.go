@@ -8,7 +8,6 @@ import (
 
 //요청DTO
 type MenuCreate struct {
-	Id          int64  `json:"id" validate:"required"`
 	Name        string `json:"name" validate:"required"`
 	Price       int64  `json:"price" validate:"required"`
 	Description string `json:"description"`
@@ -16,9 +15,10 @@ type MenuCreate struct {
 }
 
 func (a MenuCreate) Validate(ctx echo.Context) error {
-	if err := ctx.Validate(a); err != nil {
-		return err
-	}
+
+	//if err := ctx.Validate(a); err != nil {
+	//	return err
+	//}
 
 	if err := validatePrice(a.Price); err != nil {
 		return err
