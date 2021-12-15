@@ -5,8 +5,6 @@ import (
 	"menu-service/menu/entity"
 )
 
-
-
 func MakeMenuSummary(menu entity.Menu) (menuSummary response.MenuSummary) {
 	menuSummary = response.MenuSummary{
 		Id:          menu.Id,
@@ -19,5 +17,13 @@ func MakeMenuSummary(menu entity.Menu) (menuSummary response.MenuSummary) {
 		Description: menu.Description,
 	}
 
-return
+	return
+}
+
+func MakeMenuSummaries(menus []entity.Menu) (menuSummary []response.MenuSummary) {
+	for _, menu := range menus {
+		menuSummary = append(menuSummary, MakeMenuSummary(menu))
+	}
+
+	return
 }

@@ -2,8 +2,9 @@ package repository
 
 import (
 	"context"
+	"github.com/go-xorm/xorm"
 	"menu-service/common"
-	"menu-service/dto/response"
+	requestDto "menu-service/dto/request"
 	"menu-service/menu/entity"
 	"sync"
 )
@@ -46,18 +47,32 @@ func (menuRepository) FindById(ctx context.Context, Id int64) (entity.Menu, erro
 	return menu, nil
 }
 
-func (menuRepository) FindAll(ctx context.Context, pageable response.Pageable) (menu []entity.Menu, totalCount int64, err error) {
-	db := common.GetDB(ctx)
-	offset := (pageable.Page - 1) * pageable.PageSize
+func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable) (menus []entity.Menu, totalCount int64, err error) {
 
-	if totalCount, err = db.Desc("id").Limit(pageable.PageSize, offset).FindAndCount(&menu); err != nil {
-		return menu, 0, err
+	queryBuilder := func() xorm.Interface {
+		q := common.GetDB(ctx).Table("menu").Select("menu.*").Where("1=1")
+
+		return q
+	}
+
+	var results []struct {
+		entity.Menu `xorm:"extends"`
+	}
+
+	if totalCount, err = queryBuilder().Limit(pageable.PageSize).Desc("menu.id").FindAndCount(&results); err != nil {
+		return
 	}
 	if totalCount == 0 {
-		return menu, 0, nil
+		return nil, 0, err
 	}
 
-	return menu, totalCount, nil
+	for _, result := range results {
+		var menu = entity.Menu{}
+		menu = result.Menu
+		menus = append(menus, menu)
+	}
+
+	return menus, totalCount, err
 }
 
 func (menuRepository) Update(ctx context.Context, menu *entity.Menu) error {

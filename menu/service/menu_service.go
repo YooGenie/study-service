@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	requestDto "menu-service/dto/request"
-	"menu-service/dto/response"
-	"menu-service/menu/entity"
+	responseDto "menu-service/dto/response"
+
 	"menu-service/menu/mapper"
 	"menu-service/menu/repository"
 	"sync"
@@ -38,19 +38,28 @@ func (menuService) CreateMenu(ctx context.Context, creation requestDto.MenuCreat
 
 }
 
-func (menuService) GetMenuById(ctx context.Context, Id int64) (menuSummary response.MenuSummary, err error) {
-	campaign, err := repository.MenuRepository().FindById(ctx, Id)
+func (menuService) GetMenuById(ctx context.Context, Id int64) (menuSummary responseDto.MenuSummary, err error) {
+	menu, err := repository.MenuRepository().FindById(ctx, Id)
 	if err != nil {
 		return
 	}
 
-	menuSummary = mapper.MakeMenuSummary(campaign)
+	menuSummary = mapper.MakeMenuSummary(menu)
 
 	return
 }
 
-func (menuService) GetMenu(ctx context.Context, pageable response.Pageable) ([]entity.Menu, int64, error) {
-	return repository.MenuRepository().FindAll(ctx, pageable)
+func (menuService) GetMenu(ctx context.Context, pageable requestDto.Pageable) (results responseDto.PageResult, err error) {
+	menus, totalCount, err := repository.MenuRepository().FindAll(ctx, pageable)
+
+	menuSummaries := mapper.MakeMenuSummaries(menus)
+
+	results = responseDto.PageResult{
+		Result:     menuSummaries,
+		TotalCount: totalCount,
+	}
+
+	return
 }
 
 func (menuService) UpdateMenu(ctx context.Context, menuMake requestDto.MenuCreate) (int64, error) {

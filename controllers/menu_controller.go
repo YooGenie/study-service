@@ -59,39 +59,15 @@ func (MenuController) GetMenuById(ctx echo.Context) error {
 }
 
 func (MenuController) GetMenu(ctx echo.Context) error {
-	//pageable := response.GetPageableFromRequest(ctx)
-	//
-	//menus, totalCount, err := services.MenuService().GetMenu(ctx.Request().Context(), pageable)
-	//if err != nil {
-	//	log.Errorf("GetMenu Error:  %s", err.Error())
-	//	return ctx.JSON(http.StatusInternalServerError, response.ApiError{
-	//		Message: err.Error(),
-	//	})
-	//}
-	//menuSummaries := make([]dto2.MenuSummary, 0)
-	//
-	//for _, menu := range menus {
-	//	menuSummaries = append(menuSummaries, dto2.MenuSummary{
-	//		Id:          menu.Id,
-	//		Name:        menu.Name,
-	//		Price:       menu.Price,
-	//		Description: menu.Description,
-	//		CreatedBy:   menu.CreatedBy,
-	//		CreatedAt:   menu.CreatedAt,
-	//		UpdatedBy:   menu.UpdatedBy,
-	//		UpdatedAt:   menu.UpdatedAt,
-	//	})
-	//}
-	//
-	//resPageResult := response.PageResult{
-	//	Result:     menuSummaries,
-	//	TotalCount: totalCount,
-	//}
-	//
-	//return ctx.JSON(http.StatusOK, resPageResult)
-	return nil
-}
+	pageable := requestDto.GetPageableFromRequest(ctx)
 
+	result, err := service.MenuService().GetMenu(ctx.Request().Context(), pageable)
+	if err != nil {
+		return err
+	}
+
+	return ctx.JSON(http.StatusOK, result)
+}
 func (MenuController) Update(ctx echo.Context) error {
 	//menuId, _ := strconv.ParseInt(ctx.Param("Id"), 10, 64)
 	//var menuMake dto2.MenuMake
