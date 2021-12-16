@@ -3,7 +3,6 @@ package dto
 import (
 	"github.com/labstack/echo"
 	"menu-service/common/errors"
-	"time"
 )
 
 //요청DTO
@@ -37,13 +36,22 @@ func validatePrice(price int64) (err error) {
 	return
 }
 
-type MenuSummary struct {
-	Id          int64     `json:"id"`
-	Name        string    `json:"name"`
-	Price       int       `json:"price"`
-	Description string    `json:"description"`
-	CreatedBy   string    `json:"createdBy"`
-	CreatedAt   time.Time `json:"createdAt"`
-	UpdatedBy   string    `json:"updatedBy"`
-	UpdatedAt   time.Time `json:"updatedAt"`
+type MenuUpdate struct {
+	Id  int64  `json:"id" validate:"required"`
+	Name        string `json:"name" validate:"required"`
+	Price       int64  `json:"price" validate:"required"`
+	Description string `json:"description"`
+}
+
+func (a MenuUpdate) Validate(ctx echo.Context) error {
+
+	//if err := ctx.Validate(a); err != nil {
+	//	return err
+	//}
+
+	if err := validatePrice(a.Price); err != nil {
+		return err
+	}
+
+	return nil
 }

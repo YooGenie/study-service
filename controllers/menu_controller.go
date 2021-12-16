@@ -69,22 +69,25 @@ func (MenuController) GetMenu(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, result)
 }
 func (MenuController) Update(ctx echo.Context) error {
-	//menuId, _ := strconv.ParseInt(ctx.Param("Id"), 10, 64)
-	//var menuMake dto2.MenuMake
-	//
-	//if err := ctx.Bind(&menuMake); err != nil {
-	//	return ctx.JSON(http.StatusBadRequest, response.ApiError{
-	//		Message: err.Error(),
-	//	})
-	//}
-	//
-	//menuMake.Id = menuId
-	//
-	//menuId, _ = services.MenuService().UpdateMenu(ctx.Request().Context(), menuMake)
-	//
-	//return ctx.JSON(http.StatusOK, nil)
+	menuId, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
 
-	return nil
+	if err != nil {
+		return errors.ApiParamValidError(err)
+	}
+
+	menuUpdate := requestDto.MenuUpdate{}
+	if err = ctx.Bind(&menuUpdate); err != nil {
+		return errors.ApiParamValidError(err)
+	}
+	if err = menuUpdate.Validate(ctx); err != nil {
+		return err
+	}
+
+	menuUpdate.Id = menuId
+
+	err = service.MenuService().UpdateMenu(ctx.Request().Context(), menuUpdate)
+
+	return ctx.JSON(http.StatusOK, nil)
 }
 
 func (MenuController) Delete(ctx echo.Context) error {

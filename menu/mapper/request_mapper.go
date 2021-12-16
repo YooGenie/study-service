@@ -1,6 +1,7 @@
 package mapper
 
 import (
+	log "github.com/sirupsen/logrus"
 	requestDto "menu-service/dto/request"
 	"menu-service/menu/entity"
 	"time"
@@ -21,3 +22,13 @@ func NewMenu(creation requestDto.MenuCreate) (menu entity.Menu, err error) {
 	return
 }
 
+func UpdateMenu(edition requestDto.MenuUpdate,  menu *entity.Menu) (err error) {
+	log.Infoln("")
+
+	menu.Id =edition.Id
+	menu.Name=edition.Name
+	menu.Price=edition.Price
+	menu.Description=edition.Description
+
+	return
+}

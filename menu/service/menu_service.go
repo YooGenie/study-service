@@ -62,20 +62,22 @@ func (menuService) GetMenu(ctx context.Context, pageable requestDto.Pageable) (r
 	return
 }
 
-func (menuService) UpdateMenu(ctx context.Context, menuMake requestDto.MenuCreate) (int64, error) {
-	//menu, err := repository.MenuRepository().FindById(ctx, menuMake.Id)
-	//if err != nil {
-	//	return 0, err
-	//}
-	//
-	//menu.UpdateMenu(ctx, menuMake)
-	//
-	//if err := repository.MenuRepository().Update(ctx, &menu); err != nil {
-	//	return 0, err
-	//}
+func (menuService) UpdateMenu(ctx context.Context, edition requestDto.MenuUpdate) (err error) {
+	menu, err := repository.MenuRepository().FindById(ctx, edition.Id)
+	if err != nil {
+		return
+	}
 
-	//return menu.Id, nil
-	return 0, nil
+	err = mapper.UpdateMenu(edition, &menu)
+	if err != nil {
+		return err
+	}
+
+	if err = repository.MenuRepository().Update(ctx, &menu); err != nil {
+		return  err
+	}
+
+	return
 }
 
 func (menuService) DeleteMenu(ctx context.Context, Id int64) error {
