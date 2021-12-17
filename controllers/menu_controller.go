@@ -91,27 +91,13 @@ func (MenuController) Update(ctx echo.Context) error {
 }
 
 func (MenuController) Delete(ctx echo.Context) error {
-	//menuId, err := strconv.ParseInt(ctx.Param("Id"), 10, 64)
-	//if err != nil {
-	//	log.Errorf("Delete Error: %s", err.Error())
-	//
-	//	return ctx.JSON(http.StatusBadRequest, response.ApiError{
-	//		Message: err.Error(),
-	//	})
-	//}
-	//
-	//err = services.MenuService().DeleteMenu(ctx.Request().Context(), menuId)
-	//if err != nil {
-	//	log.Errorf("Delete Error:  %s", err.Error())
-	//	if err == common.ErrAuthorization {
-	//		return ctx.JSON(http.StatusInternalServerError, common.ErrAuthorization)
-	//	}
-	//	return ctx.JSON(http.StatusInternalServerError, response.ApiError{
-	//		Message: err.Error(),
-	//	})
-	//}
-	//
-	//return ctx.JSON(http.StatusOK, nil)
+	menuId, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		return errors.ApiParamValidError(err)
+	}
 
-	return nil
+	err = service.MenuService().DeleteMenu(ctx.Request().Context(), menuId)
+
+	return ctx.JSON(http.StatusOK, nil)
+
 }
