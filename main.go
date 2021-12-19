@@ -6,7 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"menu-service/config"
 	"menu-service/config/handler"
-	"menu-service/controllers"
+	"menu-service/controller"
 	"net/http"
 	"os"
 )
@@ -29,7 +29,8 @@ func main() {
 	//e.Use(handler.InitUserClaimMiddleware())
 	//e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
 
-	controllers.MenuController{}.Init(e.Group("/api/menu"))
+	controller.MenuController{}.Init(e.Group("/api/menu"))
+	controller.StoreController{}.Init(e.Group("/api/store"))
 
 	log.Info("study Service Server Started: Port=" + config.Config.HttpPort)
 	e.Start(":" + config.Config.HttpPort)
