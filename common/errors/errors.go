@@ -47,3 +47,4 @@ func Throw(cause error) error {
 func ApiParamValidError(err error) error {
 	return new(http.StatusBadRequest, 90001, err.Error())
 }
+

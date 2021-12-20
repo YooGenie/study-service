@@ -33,6 +33,9 @@ var Config = struct {
 		MaxAge     int
 		Compress   bool
 	}
+	Encrypt struct {
+		EncryptKey string
+	}
 }{}
 
 func InitConfig(cfg string) {

@@ -32,6 +32,16 @@ func (s *Store) Create(ctx context.Context) error {
 	return nil
 }
 
+func (s Store) ValidatePassword(password string) (err error) {
+	if common.ComparePasswords(s.Password, password) {
+		return err
+	}
+
+	return err
+
+}
+
+
 func (Store) TableName() string {
 	return "store"
 }
