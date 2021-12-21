@@ -10,6 +10,7 @@ import (
 )
 
 type Store struct {
+	No                         int64           `xorm:"no"`
 	Id                         string          `xorm:"id"`
 	Password                   string          `xorm:"password"`
 	Mobile                     string          `xorm:"mobile"`
@@ -40,7 +41,6 @@ func (s Store) ValidatePassword(password string) (err error) {
 	return err
 
 }
-
 
 func (Store) TableName() string {
 	return "store"

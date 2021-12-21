@@ -7,6 +7,7 @@ import (
 	requestDto "menu-service/dto/request"
 	"menu-service/store/service"
 	"net/http"
+	"strconv"
 )
 
 type StoreController struct {
@@ -14,6 +15,7 @@ type StoreController struct {
 
 func (controller StoreController) Init(g *echo.Group) {
 	g.POST("", controller.Create)
+	g.GET("/:no", controller.GetStoreById)
 }
 
 func (StoreController) Create(ctx echo.Context) error {
@@ -28,7 +30,6 @@ func (StoreController) Create(ctx echo.Context) error {
 		return err
 	}
 
-	//서비스부분 연결
 	err := service.StoreService().Create(ctx.Request().Context(), storeCreate)
 	if err != nil {
 		return err
@@ -37,4 +38,17 @@ func (StoreController) Create(ctx echo.Context) error {
 	return ctx.NoContent(http.StatusOK)
 }
 
+func (StoreController) GetStoreById(ctx echo.Context) error {
+	storeNo, err := strconv.ParseInt(ctx.Param("no"), 10, 64)
+	if err != nil {
+		return errors.ApiParamValidError(err)
+	}
 
+	menu, _ := service.StoreService().GetStoreById(ctx.Request().Context(), storeNo)
+	if err != nil {
+		return err
+	}
+
+	return ctx.JSON(http.StatusOK, menu)
+
+}

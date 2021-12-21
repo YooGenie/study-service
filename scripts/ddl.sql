@@ -17,6 +17,8 @@ create table menu
 
 create table store
 (
+    no int auto_increment
+        primary key,
     id varchar(20) not null,
     password varchar(100) not null,
     business_registration_number VARCHAR(10) not null comment '사업자번호',
@@ -24,9 +26,8 @@ create table store
     created JSON not null,
     updated JSON not null,
     deleted_at datetime null,
-    constraint member_store_pk
-        primary key (id),
-    UNIQUE INDEX `uq_store_business_registration_number` (`business_registration_number`)
+    UNIQUE INDEX `uq_store_business_registration_number` (`business_registration_number`),
+    UNIQUE INDEX `uq_store_id` (`id`)
 );
 
 create table store_info
