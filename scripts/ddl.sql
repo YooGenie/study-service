@@ -18,9 +18,9 @@ create table menu
 create table store
 (
     id varchar(20) not null,
-    password varchar(20) not null,
+    password varchar(100) not null,
     business_registration_number VARCHAR(10) not null comment '사업자번호',
-    mobile VARCHAR(11) not null comment '핸드폰번호',
+    mobile VARCHAR(20) not null comment '핸드폰번호',
     created JSON not null,
     updated JSON not null,
     deleted_at datetime null,

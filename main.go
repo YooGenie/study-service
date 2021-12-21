@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	config.ConfigureEnvironment("./",  "STUDY_GENIE_DB_PASSWORD")
+	config.ConfigureEnvironment("./",  "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY")
 	xormDb := config.ConfigureDatabase()
 	config.ConfigureLogger()
 	// 이부분이 없으니까 500번 에러가 뜬다. 이유 찾아보기!

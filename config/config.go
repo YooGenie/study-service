@@ -14,12 +14,12 @@ const (
 )
 
 var Config = struct {
-	HttpPort string
+	HttpPort    string
 	Environment string
-	Database struct {
-		Driver     string
-		User       string
-		Connection string
+	Database    struct {
+		Driver           string
+		User             string
+		Connection       string
 		ConnectionString string
 	}
 	Service struct {
@@ -60,7 +60,7 @@ func ConfigureEnvironment(path string, env ...string) {
 
 // 서비스별 처리 로직이 달라지는 부분.
 func afterPropertiesSet(properties map[string]string) {
-
+	Config.Encrypt.EncryptKey = properties["STUDY_GENIE_ENCRYPT_KEY"]
 	if properties["STUDY_GENIE_DB_PASSWORD"] != "" {
 		Config.Database.ConnectionString = fmt.Sprintf("%s:%s%s", Config.Database.User, properties["STUDY_GENIE_DB_PASSWORD"], Config.Database.Connection)
 	} else {

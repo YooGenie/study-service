@@ -30,7 +30,7 @@ func (storeService) Create(ctx context.Context, creation requestDto.StoreCreate)
 	store := entity.Store{
 		Id:                         creation.Id,
 		Password:                   password,
-		Mobile:                     creation.Mobile,
+		Mobile:                     common.SetEncrypt(creation.Mobile),
 		BusinessRegistrationNumber: creation.BusinessRegistrationNumber,
 		Created:                    nil,
 		Updated:                    nil,
