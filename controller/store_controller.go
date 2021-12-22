@@ -16,6 +16,7 @@ type StoreController struct {
 func (controller StoreController) Init(g *echo.Group) {
 	g.POST("", controller.Create)
 	g.GET("/:no", controller.GetStoreById)
+	g.PUT("/:no", controller.Update)
 }
 
 func (StoreController) Create(ctx echo.Context) error {
@@ -51,4 +52,26 @@ func (StoreController) GetStoreById(ctx echo.Context) error {
 
 	return ctx.JSON(http.StatusOK, menu)
 
+}
+
+func (StoreController) Update(ctx echo.Context) error {
+	storeNo, err := strconv.ParseInt(ctx.Param("no"), 10, 64)
+
+	if err != nil {
+		return errors.ApiParamValidError(err)
+	}
+
+	storeUpdate := requestDto.StoreUpdate{}
+	if err = ctx.Bind(&storeUpdate); err != nil {
+		return errors.ApiParamValidError(err)
+	}
+	if err = storeUpdate.Validate(ctx); err != nil {
+		return err
+	}
+
+	storeUpdate.No = storeNo
+
+	err = service.StoreService().Update(ctx.Request().Context(), storeUpdate)
+
+	return ctx.NoContent(http.StatusOK)
 }

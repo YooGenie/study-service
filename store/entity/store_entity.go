@@ -45,3 +45,16 @@ func (s Store) ValidatePassword(password string) (err error) {
 func (Store) TableName() string {
 	return "store"
 }
+
+func (s *Store) Update(ctx context.Context) error {
+
+	if rowsAffected, err := common.GetDB(ctx).Update(s); err != nil {
+		log.Errorln(err)
+		return err
+	} else if rowsAffected == 0 {
+		msg := "수정 되지 않았습니다. 시스템관리자에게 문의하여 주세요"
+		log.Errorln(msg)
+		return errors.New(msg)
+	}
+	return nil
+}

@@ -59,3 +59,28 @@ func (storeService) GetStoreById(ctx context.Context, storeNo int64) (storeSumma
 	storeSummary.Mobile = common.GetDecrypt(storeSummary.Mobile)
 	return
 }
+
+func (storeService) Update(ctx context.Context, edition requestDto.StoreUpdate) (err error) {
+
+	password, err := common.HashAndSalt(edition.Password)
+	store := entity.Store{
+		No:                         edition.No,
+		Id:                         edition.Id,
+		Password:                   password,
+		Mobile:                     common.SetEncrypt(edition.Mobile),
+		BusinessRegistrationNumber: edition.BusinessRegistrationNumber,
+		Created:                    nil,
+		Updated:                    nil,
+	}
+
+	if err = store.ValidatePassword(password); err != nil {
+		return
+	}
+
+	if err = store.Update(ctx); err != nil {
+		return
+	}
+
+	return
+
+}

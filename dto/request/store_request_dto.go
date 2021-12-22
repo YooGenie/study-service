@@ -34,3 +34,24 @@ func validateBusinessRegistrationNumber(businessRegistrationNumber string) (err 
 
 	return
 }
+
+type StoreUpdate struct {
+	No                         int64  `json:"no" validate:"required"`
+	Id                         string `json:"id" validate:"required"`
+	Password                   string `json:"password" validate:"required"`
+	Mobile                     string `json:"mobile" validate:"required"`
+	BusinessRegistrationNumber string `json:"businessRegistrationNumber" validate:"required"`
+}
+
+func (a StoreUpdate) Validate(ctx echo.Context) error {
+
+	//if err := ctx.Validate(a); err != nil {
+	//	return err
+	//}
+
+	if err := validateBusinessRegistrationNumber(a.BusinessRegistrationNumber); err != nil {
+		return err
+	}
+
+	return nil
+}
