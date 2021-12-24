@@ -84,3 +84,19 @@ func (storeService) Update(ctx context.Context, edition requestDto.StoreUpdate) 
 	return
 
 }
+
+func (storeService) GetStores(ctx context.Context, searchParams requestDto.SearchStoreQueryParams, pageable requestDto.Pageable) (results responseDto.PageResult, err error) {
+	menus, totalCount, err := repository.StoreRepository().FindAll(ctx, searchParams, pageable)
+	if err != nil {
+		return
+	}
+	for i := 0; i < len(menus); i++ {
+		menus[i].Mobile = common.GetDecrypt(menus[i].Mobile)
+	}
+	results = responseDto.PageResult{
+		Result:     menus,
+		TotalCount: totalCount,
+	}
+
+	return
+}

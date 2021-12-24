@@ -55,3 +55,6 @@ func (a StoreUpdate) Validate(ctx echo.Context) error {
 
 	return nil
 }
+
+type SearchStoreQueryParams struct {
+}

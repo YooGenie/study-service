@@ -17,6 +17,7 @@ func (controller StoreController) Init(g *echo.Group) {
 	g.POST("", controller.Create)
 	g.GET("/:no", controller.GetStoreById)
 	g.PUT("/:no", controller.Update)
+	g.GET("", controller.GetStores)
 }
 
 func (StoreController) Create(ctx echo.Context) error {
@@ -74,4 +75,17 @@ func (StoreController) Update(ctx echo.Context) error {
 	err = service.StoreService().Update(ctx.Request().Context(), storeUpdate)
 
 	return ctx.NoContent(http.StatusOK)
+}
+
+func (StoreController) GetStores(ctx echo.Context) error {
+	pageable := requestDto.GetPageableFromRequest(ctx)
+
+	searchParams := requestDto.SearchStoreQueryParams{}
+
+	result, err := service.StoreService().GetStores(ctx.Request().Context(), searchParams, pageable)
+	if err != nil {
+		return err
+	}
+
+	return ctx.JSON(http.StatusOK, result)
 }
