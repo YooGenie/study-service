@@ -100,3 +100,12 @@ func (storeService) GetStores(ctx context.Context, searchParams requestDto.Searc
 
 	return
 }
+
+func (storeService) Delete(ctx context.Context, storeNo int64) (err error) {
+	deleteStore := entity.Store{No: storeNo}
+	if err = deleteStore.Delete(ctx); err != nil {
+		return err
+	}
+
+	return
+}

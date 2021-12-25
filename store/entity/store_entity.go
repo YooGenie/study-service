@@ -17,7 +17,7 @@ type Store struct {
 	BusinessRegistrationNumber string          `xorm:"business_registration_number"`
 	Created                    json.RawMessage `xorm:"json 'created'"`
 	Updated                    json.RawMessage `xorm:"json 'updated'" `
-	DeletedAt                  time.Time       `xorm:"deleted_at"`
+	DeletedAt                  time.Time       `xorm:"deleted" `
 }
 
 func (s *Store) Create(ctx context.Context) error {
@@ -56,5 +56,19 @@ func (s *Store) Update(ctx context.Context) error {
 		log.Errorln(msg)
 		return errors.New(msg)
 	}
+	return nil
+}
+
+func (s *Store) Delete(ctx context.Context) error {
+
+	if rowsAffected, err := common.GetDB(ctx).Where("no=?", s.No).Delete(s); err != nil {
+		log.Errorln(err)
+		return err
+	} else if rowsAffected == 0 {
+		msg := "삭제가 반영되지 않았습니다. 시스템관리자에게 문의하여 주세요"
+		log.Errorln(msg)
+		return errors.New(msg)
+	}
+
 	return nil
 }

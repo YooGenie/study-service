@@ -18,6 +18,7 @@ func (controller StoreController) Init(g *echo.Group) {
 	g.GET("/:no", controller.GetStoreById)
 	g.PUT("/:no", controller.Update)
 	g.GET("", controller.GetStores)
+	g.PUT("/delete/:no", controller.Delete)
 }
 
 func (StoreController) Create(ctx echo.Context) error {
@@ -88,4 +89,16 @@ func (StoreController) GetStores(ctx echo.Context) error {
 	}
 
 	return ctx.JSON(http.StatusOK, result)
+}
+
+func (StoreController) Delete(ctx echo.Context) error {
+	storeNo, err := strconv.ParseInt(ctx.Param("no"), 10, 64)
+
+	if err != nil {
+		return errors.ApiParamValidError(err)
+	}
+
+	err = service.StoreService().Delete(ctx.Request().Context(), storeNo)
+
+	return ctx.NoContent(http.StatusOK)
 }
