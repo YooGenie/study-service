@@ -27,7 +27,7 @@ func StoreRepository() *storeRepository {
 type storeRepository struct {
 }
 
-func (storeRepository) FindById(ctx context.Context, storeNo int64) (storeSummary responseDto.StoreSummary, err error) {
+func (storeRepository) FindByNo(ctx context.Context, storeNo int64) (storeSummary responseDto.StoreSummary, err error) {
 
 	queryBuilder := func() xorm.Interface {
 		q := common.GetDB(ctx).Table("store")
@@ -63,6 +63,28 @@ func (storeRepository) FindAll(ctx context.Context, searchParams requestDto.Sear
 	}
 
 	if totalCount == 0 {
+		return
+	}
+
+	return
+}
+
+func (storeRepository) FindById(ctx context.Context, storeIn string) (storeSummary responseDto.StoreSummary, err error) {
+
+	queryBuilder := func() xorm.Interface {
+		q := common.GetDB(ctx).Table("store")
+		q.Where("1=1")
+		q.And("store.id =?", storeIn)
+		return q
+	}
+
+	has, err := queryBuilder().Get(&storeSummary)
+	if err != nil {
+		return
+	}
+
+	if has == false {
+		err = errors.ErrNoResult
 		return
 	}
 

@@ -50,8 +50,8 @@ func (storeService) Create(ctx context.Context, creation requestDto.StoreCreate)
 
 }
 
-func (storeService) GetStoreById(ctx context.Context, storeNo int64) (storeSummary responseDto.StoreSummary, err error) {
-	storeSummary, err = repository.StoreRepository().FindById(ctx, storeNo)
+func (storeService) GetStoreByNo(ctx context.Context, storeNo int64) (storeSummary responseDto.StoreSummary, err error) {
+	storeSummary, err = repository.StoreRepository().FindByNo(ctx, storeNo)
 	if err != nil {
 		return
 	}
@@ -107,5 +107,15 @@ func (storeService) Delete(ctx context.Context, storeNo int64) (err error) {
 		return err
 	}
 
+	return
+}
+
+func (storeService) GetStoreById(ctx context.Context, storeId string) (storeSummary responseDto.StoreSummary, err error) {
+	storeSummary, err = repository.StoreRepository().FindById(ctx, storeId)
+	if err != nil {
+		return
+	}
+
+	storeSummary.Mobile = common.GetDecrypt(storeSummary.Mobile)
 	return
 }

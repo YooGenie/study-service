@@ -47,7 +47,7 @@ func (StoreController) GetStoreById(ctx echo.Context) error {
 		return errors.ApiParamValidError(err)
 	}
 
-	menu, _ := service.StoreService().GetStoreById(ctx.Request().Context(), storeNo)
+	menu, _ := service.StoreService().GetStoreByNo(ctx.Request().Context(), storeNo)
 	if err != nil {
 		return err
 	}
