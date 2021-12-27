@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	config.ConfigureEnvironment("./",  "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY")
+	config.ConfigureEnvironment("./", "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY")
 	xormDb := config.ConfigureDatabase()
 	config.ConfigureLogger()
 	// 이부분이 없으니까 500번 에러가 뜬다. 이유 찾아보기!
@@ -31,6 +31,7 @@ func main() {
 
 	controller.MenuController{}.Init(e.Group("/api/menu"))
 	controller.StoreController{}.Init(e.Group("/api/store"))
+	controller.AuthController{}.Init(e.Group("/api/auth"))
 
 	log.Info("study Service Server Started: Port=" + config.Config.HttpPort)
 	e.Start(":" + config.Config.HttpPort)
