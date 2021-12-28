@@ -5,12 +5,12 @@
   mobile: DxLjRiBz7jXk0w==
   created: null
   updated: null
-  deleted_at: 2021-12-25 22:15:17
-- no: 2
-  id: pink712
-  password: $2a$04$7R4PwaLegNlLsK7nuG2UvuVKnwH4H5Ow8qb5ruWzdiNWIKbL5ORpS
-  business_registration_number: 1234567890
-  mobile: DxLjRiBz7jXk0w==
-  created: null
-  updated: null
   deleted_at: null
+#- no: 2
+#  id: pink712
+#  password: $2a$04$7R4PwaLegNlLsK7nuG2UvuVKnwH4H5Ow8qb5ruWzdiNWIKbL5ORpS
+#  business_registration_number: 1234567890
+#  mobile: DxLjRiBz7jXk0w==
+#  created:
+#  updated:
+#  deleted_at:
