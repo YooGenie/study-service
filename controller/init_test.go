@@ -28,7 +28,7 @@ func init() {
 
 	e := config.ConfigureEcho()
 
-	e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
+	//e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
 
 	echoApp = e
 }

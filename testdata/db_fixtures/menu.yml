@@ -1,26 +1,24 @@
 - id: 1
-  name: "떡볶이"
+  name: 떡볶이
   price: 3000
-  description: "매콤달콤하다"
+  description: 매콤달콤하다
   created_at: RAW=datetime('now')
-  created_by: "1@naver.com"
+  created_by: 1@naver.com
   updated_at: RAW=datetime('now')
-  updated_by: "1@naver.com"
-
+  updated_by: 1@naver.com
 - id: 2
-  name: "튀김순대"
+  name: 튀김순대
   price: 3000
-  description: ""
+  description:
   created_at: RAW=datetime('now')
-  created_by: "1@naver.com"
+  created_by: 1@naver.com
   updated_at: RAW=datetime('now')
-  updated_by: "1@naver.com"
-
+  updated_by: 1@naver.com
 - id: 3
-  name: "아이스아메리카노"
+  name: 아이스아메리카노
   price: 4100
-  description: "시원해요"
+  description: 시원해요
   created_at: RAW=datetime('now')
-  created_by: "1@naver.com"
+  created_by: 1@naver.com
   updated_at: RAW=datetime('now')
-  updated_by: "1@naver.com"
+  updated_by: 1@naver.com
