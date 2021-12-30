@@ -21,14 +21,14 @@ var (
 
 func init() {
 	runtime.GOMAXPROCS(1)
-	os.Setenv("CONFIGOR_ENV", "test")
+	os.Setenv("STUDY_GENIE_ENCRYPT_KEY", "UjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9")
 	config.ConfigureEnvironment("../", "STUDY_GENIE_ENCRYPT_KEY")
 	xormDb = config.ConfigureDatabase()
 	config.ConfigureLogger()
 
 	e := config.ConfigureEcho()
 
-	//e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
+	e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
 
 	echoApp = e
 }
