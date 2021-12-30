@@ -11,7 +11,6 @@ import (
 const (
 	ContextUserClaimKey = "userClaim"
 	ContextDBKey        = "DB"
-	ContextLoggingDBKey = "LOGGING_DB"
 )
 
 var Config = struct {

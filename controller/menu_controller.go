@@ -40,7 +40,7 @@ func (MenuController) Create(ctx echo.Context) error {
 		return err
 	}
 
-	return ctx.NoContent(http.StatusCreated)
+	return ctx.NoContent(http.StatusOK)
 }
 
 func (MenuController) GetMenuById(ctx echo.Context) error {
