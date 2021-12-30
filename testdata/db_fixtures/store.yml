@@ -1,13 +1,11 @@
-- no: 1
-  id: genie1
+- id: genie1
   password: $2a$04$cKlz9evNqBinUMFayLnGpOZhrjqhyEIvU2bdBBTOxbaFN9hCijLT2
   business_registration_number: 1234567899
   mobile:
   created: null
   updated: null
   deleted_at: 2021-12-25 22:15:17
-- no: 2
-  id: genie
+- id: genie
   password: $2a$04$7R4PwaLegNlLsK7nuG2UvuVKnwH4H5Ow8qb5ruWzdiNWIKbL5ORpS
   business_registration_number: 1234567890
   mobile:
