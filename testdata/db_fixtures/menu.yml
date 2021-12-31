@@ -5,20 +5,20 @@
   created_at: RAW=datetime('now')
   created_by: "1@naver.com"
   updated_at: RAW=datetime('now')
-  updated_by: "1@naver.com"
+  updated_by: "0@naver.com"
 - id: 2
-  name: "떡볶이"
+  name: "짜파게티"
   price: 3000
-  description: "매콤달콤하다"
+  description: "꼬들꼬들"
   created_at: RAW=datetime('now')
   created_by: "1@naver.com"
   updated_at: RAW=datetime('now')
-  updated_by: "1@naver.com"
+  updated_by: "0@naver.com"
 - id: 3
-  name: "떡볶이"
-  price: 3000
-  description: "매콤달콤하다"
+  name: "라면"
+  price: 4000
+  description: "달걀 톡 파 송송송"
   created_at: RAW=datetime('now')
   created_by: "1@naver.com"
   updated_at: RAW=datetime('now')
-  updated_by: "1@naver.com"
+  updated_by: "0@naver.com"
