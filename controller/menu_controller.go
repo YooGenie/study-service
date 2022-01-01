@@ -49,7 +49,7 @@ func (MenuController) GetMenuById(ctx echo.Context) error {
 		return errors.ApiParamValidError(err)
 	}
 
-	menu, _ := service.MenuService().GetMenuById(ctx.Request().Context(), menuId)
+	menu, err := service.MenuService().GetMenuById(ctx.Request().Context(), menuId)
 	if err != nil {
 		return err
 	}

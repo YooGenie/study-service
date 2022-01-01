@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/go-xorm/xorm"
 	"menu-service/common"
+	"menu-service/common/errors"
 	requestDto "menu-service/dto/request"
 	"menu-service/menu/entity"
 	"sync"
@@ -39,12 +40,17 @@ func (menuRepository) Create(ctx context.Context, menu *entity.Menu) error {
 
 func (menuRepository) FindById(ctx context.Context, Id int64) (entity.Menu, error) {
 	var menu = entity.Menu{Id: Id}
-	_, err := common.GetDB(ctx).Get(&menu)
+	has, err := common.GetDB(ctx).Get(&menu)
+	 if !has {
+		 err = errors.ErrNoResult
+		 return menu, err
+	 }
+
 	if err != nil {
 		return menu, err
 	}
 
-	return menu, nil
+	return menu, err
 }
 
 func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable) (menus []entity.Menu, totalCount int64, err error) {

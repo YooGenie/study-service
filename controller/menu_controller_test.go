@@ -102,3 +102,59 @@ func TestMenuController_Update(t *testing.T) {
 		assert.Equal(t, http.StatusBadRequest, rec.Code)
 	})
 }
+
+func TestMenuController_GET(t *testing.T) {
+	DatabaseFixture{}.setUpDefault(xormDb.Engine)
+
+	t.Run("Get Menu", func(t *testing.T) {
+		// given
+		menuId := "1"
+		req := httptest.NewRequest(echo.GET, fmt.Sprintf("/api/menu/:id"), nil)
+		req.Header.Add(echo.HeaderContentType, echo.MIMEApplicationJSON)
+
+		// when
+		rec := NewRequest(req).
+			WithParam("id", menuId).
+			Handle(MenuController{}.GetMenuById)
+
+		// then
+		assert.Equal(t, http.StatusOK, rec.Code)
+		result := responseDto.MenuSummary{}
+		json.Unmarshal(rec.Body.Bytes(), &result)
+
+		assert.Equal(t, "떡볶이", result.Name)
+	})
+
+	t.Run("Get nothing Menu", func(t *testing.T) {
+		// given
+		menuId := "6"
+		req := httptest.NewRequest(echo.GET, fmt.Sprintf("/api/menu/:id"), nil)
+		req.Header.Add(echo.HeaderContentType, echo.MIMEApplicationJSON)
+
+		// when
+		rec := NewRequest(req).
+			WithParam("id", menuId).
+			Handle(MenuController{}.GetMenuById)
+
+		// then
+		assert.Equal(t, http.StatusNotFound, rec.Code)
+	})
+
+	t.Run("GetCampaigns", func(t *testing.T) {
+		// given
+		req := httptest.NewRequest(echo.GET, fmt.Sprintf("/api/menus"), nil)
+		req.Header.Add(echo.HeaderContentType, echo.MIMEApplicationJSON)
+
+		// when
+		rec := NewRequest(req).
+			Handle(MenuController{}.GetMenu)
+
+		// then
+		assert.Equal(t, http.StatusOK, rec.Code)
+		result := responseDto.PageResult{}
+		json.Unmarshal(rec.Body.Bytes(), &result)
+
+		assert.Equal(t, int64(3), result.TotalCount)
+	})
+
+}

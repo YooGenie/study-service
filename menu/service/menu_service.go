@@ -41,7 +41,7 @@ func (menuService) CreateMenu(ctx context.Context, creation requestDto.MenuCreat
 func (menuService) GetMenuById(ctx context.Context, Id int64) (menuSummary responseDto.MenuSummary, err error) {
 	menu, err := repository.MenuRepository().FindById(ctx, Id)
 	if err != nil {
-		return
+		return menuSummary, err
 	}
 
 	menuSummary = mapper.MakeMenuSummary(menu)
