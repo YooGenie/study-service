@@ -14,9 +14,9 @@ type StoreCreate struct {
 
 func (a StoreCreate) Validate(ctx echo.Context) error {
 
-	//if err := ctx.Validate(a); err != nil {
-	//	return err
-	//}
+	if err := ctx.Validate(a); err != nil {
+		return err
+	}
 
 	if err := validateBusinessRegistrationNumber(a.BusinessRegistrationNumber); err != nil {
 		return err
@@ -44,10 +44,9 @@ type StoreUpdate struct {
 }
 
 func (a StoreUpdate) Validate(ctx echo.Context) error {
-
-	//if err := ctx.Validate(a); err != nil {
-	//	return err
-	//}
+	if err := ctx.Validate(a); err != nil {
+		return err
+	}
 
 	if err := validateBusinessRegistrationNumber(a.BusinessRegistrationNumber); err != nil {
 		return err

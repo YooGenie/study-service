@@ -8,6 +8,7 @@ import (
 
 func ConfigureEcho() *echo.Echo {
 	e := echo.New()
+	e.Validator = RegisterValidator()
 	e.HideBanner = true
 
 	e.Pre(middleware.RemoveTrailingSlash())
@@ -23,4 +24,10 @@ type CustomValidator struct {
 
 func (cv *CustomValidator) Validate(i interface{}) (err error) {
 	return cv.validator.Struct(i)
+}
+
+func RegisterValidator() *CustomValidator {
+	customValidator := validator.New()
+
+	return &CustomValidator{validator: customValidator}
 }

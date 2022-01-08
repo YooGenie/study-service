@@ -15,9 +15,9 @@ type MenuCreate struct {
 
 func (a MenuCreate) Validate(ctx echo.Context) error {
 
-	//if err := ctx.Validate(a); err != nil {
-	//	return err
-	//}
+	if err := ctx.Validate(a); err != nil {
+		return err
+	}
 
 	if err := validatePrice(a.Price); err != nil {
 		return err
@@ -45,9 +45,9 @@ type MenuUpdate struct {
 
 func (a MenuUpdate) Validate(ctx echo.Context) error {
 
-	//if err := ctx.Validate(a); err != nil {
-	//	return err
-	//}
+	if err := ctx.Validate(a); err != nil {
+		return err
+	}
 
 	if err := validatePrice(a.Price); err != nil {
 		return err
