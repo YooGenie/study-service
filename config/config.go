@@ -36,6 +36,7 @@ var Config = struct {
 	Encrypt struct {
 		EncryptKey string
 	}
+	JwtSecret string
 }{}
 
 func InitConfig(cfg string) {
