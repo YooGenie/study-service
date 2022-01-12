@@ -48,3 +48,5 @@ func (s Member) ValidatePassword(password string) (err error) {
 func (Member) TableName() string {
 	return "members"
 }
+
+

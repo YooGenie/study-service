@@ -4,7 +4,9 @@ import (
 	"context"
 	"menu-service/common"
 	requestDto "menu-service/dto/request"
+	responseDto "menu-service/dto/response"
 	"menu-service/member/entity"
+	"menu-service/member/repository"
 	"sync"
 )
 
@@ -48,4 +50,13 @@ func (memberService) Create(ctx context.Context, creation requestDto.MemberCreat
 
 	return
 
+}
+
+func (memberService) GetMemberById(ctx context.Context, email string) (memberSummary responseDto.MemberSummary, err error) {
+	memberSummary, err = repository.MemberRepository().FindById(ctx, email)
+if err != nil {
+return
+}
+	memberSummary.Mobile = common.GetDecrypt(memberSummary.Mobile)
+return
 }
