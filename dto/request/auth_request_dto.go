@@ -5,13 +5,13 @@ import (
 )
 
 type AdminSignIn struct {
-	Id       string `json:"id"`
+	Email    string `json:"email" validate:"email,required"`
 	Password string `json:"password" validate:"gte=6,lte=100"`
 }
 
 func (r AdminSignIn) Validate(ctx echo.Context) (err error) {
-	//if err = ctx.Validate(r); err != nil {
-	//	return
-	//}
+	if err = ctx.Validate(r); err != nil {
+		return
+	}
 	return
 }

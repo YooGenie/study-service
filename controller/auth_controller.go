@@ -18,11 +18,11 @@ func (controller AuthController) Init(g *echo.Group) {
 
 func (AuthController) AuthAdminWithEmailAndPassword(ctx echo.Context) (err error) {
 	var adminSignIn requestDto.AdminSignIn
-	if err := ctx.Bind(&adminSignIn); err != nil {
+	if err = ctx.Bind(&adminSignIn); err != nil {
 		return errors.ApiParamValidError(err)
 	}
 
-	if err := adminSignIn.Validate(ctx); err != nil {
+	if err = adminSignIn.Validate(ctx); err != nil {
 		return err
 	}
 
@@ -54,5 +54,4 @@ func (AuthController) AuthAdminWithEmailAndPassword(ctx echo.Context) (err error
 	result["accessToken"] = jwtToken.AccessToken
 	return ctx.JSON(http.StatusOK, result)
 
-	return ctx.JSON(http.StatusOK, "")
 }
