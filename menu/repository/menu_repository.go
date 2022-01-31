@@ -3,10 +3,10 @@ package repository
 import (
 	"context"
 	"github.com/go-xorm/xorm"
-	"menu-service/common"
-	"menu-service/common/errors"
-	requestDto "menu-service/dto/request"
-	"menu-service/menu/entity"
+	"study-service/common"
+	"study-service/common/errors"
+	requestDto "study-service/dto/request"
+	"study-service/menu/entity"
 	"sync"
 )
 

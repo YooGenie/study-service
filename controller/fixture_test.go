@@ -3,8 +3,8 @@ package controller
 import (
 	"fmt"
 
-	menu "menu-service/menu/entity"
-	store "menu-service/store/entity"
+	menu "study-service/menu/entity"
+	store "study-service/store/entity"
 
 	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3"

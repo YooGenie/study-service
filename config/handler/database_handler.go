@@ -2,8 +2,8 @@ package handler
 
 import (
 	"log"
-	"menu-service/config"
 	"net/http"
+	"study-service/config"
 
 	"github.com/labstack/echo"
 )

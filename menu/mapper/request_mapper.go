@@ -2,8 +2,8 @@ package mapper
 
 import (
 	log "github.com/sirupsen/logrus"
-	requestDto "menu-service/dto/request"
-	"menu-service/menu/entity"
+	requestDto "study-service/dto/request"
+	"study-service/menu/entity"
 	"time"
 )
 

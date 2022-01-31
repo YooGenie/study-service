@@ -4,10 +4,10 @@ import (
 	"context"
 	"github.com/go-xorm/xorm"
 	log "github.com/sirupsen/logrus"
-	"menu-service/common"
-	"menu-service/common/errors"
-	requestDto "menu-service/dto/request"
-	responseDto "menu-service/dto/response"
+	"study-service/common"
+	"study-service/common/errors"
+	requestDto "study-service/dto/request"
+	responseDto "study-service/dto/response"
 	"sync"
 )
 

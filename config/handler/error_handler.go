@@ -2,15 +2,15 @@ package handler
 
 import (
 	"fmt"
-	errors2 "menu-service/common/errors"
-	"menu-service/config"
-	"menu-service/dto/request"
 	"net"
 	"net/http"
 	"os"
 	"runtime"
 	"strconv"
 	"strings"
+	errors2 "study-service/common/errors"
+	"study-service/config"
+	"study-service/dto/request"
 	"sync"
 	"time"
 

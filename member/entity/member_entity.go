@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	log "github.com/sirupsen/logrus"
-	"menu-service/common"
+	"study-service/common"
 	"time"
 )
 

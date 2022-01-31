@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
-	"menu-service/common"
-	"menu-service/common/errors"
-	responseDto "menu-service/dto/response"
+	"study-service/common"
+	"study-service/common/errors"
+	responseDto "study-service/dto/response"
 	"sync"
 )
 

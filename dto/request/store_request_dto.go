@@ -1,9 +1,9 @@
 package dto
 
 import (
-	"Menu/menu-service/common/errors"
-	businessNumber "github.com/YooGenie/validateBusinessNumber"
+	"github.com/YooGenie/validate-business-number"
 	"github.com/labstack/echo"
+	"study-service/common/errors"
 )
 
 type StoreCreate struct {
@@ -19,22 +19,13 @@ func (a StoreCreate) Validate(ctx echo.Context) error {
 		return err
 	}
 
-if !businessNumber.ValidateBusinessNumber(a.BusinessRegistrationNumber) {
+if validate.BusinessNumber(a.BusinessRegistrationNumber) {
 	err := errors.ErrNotValid
 	return err
 }
 	return nil
 }
 
-//func validateBusinessRegistrationNumber(businessRegistrationNumber string) (err error) {
-//
-//	if len(businessRegistrationNumber) != 10 {
-//		err = errors.ValidationError("사업자번호는 10자리입니다.")
-//		return
-//	}
-//
-//	return
-//}
 
 type StoreUpdate struct {
 	No                         int64  `json:"no" validate:"required"`
@@ -49,7 +40,8 @@ func (a StoreUpdate) Validate(ctx echo.Context) error {
 		return err
 	}
 
-	if err := validateBusinessRegistrationNumber(a.BusinessRegistrationNumber); err != nil {
+	if validate.BusinessNumber(a.BusinessRegistrationNumber) {
+		err := errors.ErrNotValid
 		return err
 	}
 

@@ -4,11 +4,11 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
 	log "github.com/sirupsen/logrus"
-	"menu-service/config"
-	"menu-service/config/handler"
-	"menu-service/controller"
 	"net/http"
 	"os"
+	"study-service/config"
+	"study-service/config/handler"
+	"study-service/controller"
 )
 
 func main() {

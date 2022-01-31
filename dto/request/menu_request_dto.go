@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"menu-service/common/errors"
 	"github.com/labstack/echo"
+	"study-service/common/errors"
 )
 
 //요청DTO

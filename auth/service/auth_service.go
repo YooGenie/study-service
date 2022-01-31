@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
-	"menu-service/common/errors"
-	requestDto "menu-service/dto/request"
-	memberService "menu-service/member/service"
-	"menu-service/security"
-	"menu-service/member/entity"
+	"study-service/common/errors"
+	requestDto "study-service/dto/request"
+	"study-service/member/entity"
+	memberService "study-service/member/service"
+	"study-service/security"
 	"sync"
 )
 

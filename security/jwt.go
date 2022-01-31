@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	log "github.com/sirupsen/logrus"
-	"menu-service/config"
+	"study-service/config"
 	"time"
 )
 

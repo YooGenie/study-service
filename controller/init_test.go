@@ -3,12 +3,12 @@ package controller
 import (
 	"context"
 	"encoding/json"
-	"menu-service/config"
-	"menu-service/config/handler"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"runtime"
+	"study-service/config"
+	"study-service/config/handler"
 
 	"github.com/labstack/echo"
 	_ "github.com/mattn/go-sqlite3"

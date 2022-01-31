@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"menu-service/auth/service"
-	"menu-service/common/errors"
-	requestDto "menu-service/dto/request"
 	"net/http"
+	"study-service/auth/service"
+	"study-service/common/errors"
+	requestDto "study-service/dto/request"
 
 	"github.com/labstack/echo"
 )

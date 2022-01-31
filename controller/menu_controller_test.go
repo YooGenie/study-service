@@ -6,10 +6,10 @@ import (
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
 	_ "github.com/stretchr/testify/assert"
-	responseDto "menu-service/dto/response"
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	responseDto "study-service/dto/response"
 	"testing"
 )
 

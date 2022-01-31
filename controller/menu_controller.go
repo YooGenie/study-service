@@ -3,10 +3,10 @@ package controller
 import (
 	"github.com/labstack/echo"
 	log "github.com/sirupsen/logrus"
-	"menu-service/common/errors"
-	requestDto "menu-service/dto/request"
-	"menu-service/menu/service"
 	"strconv"
+	"study-service/common/errors"
+	requestDto "study-service/dto/request"
+	"study-service/menu/service"
 
 	"net/http"
 )

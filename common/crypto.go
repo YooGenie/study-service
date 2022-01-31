@@ -6,7 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
-	"menu-service/config"
+	"study-service/config"
 )
 
 //var iv = []byte{34, 45, 55, 22, 87, 31, 29, 76, 84, 32, 88, 93, 62, 36, 15, 07}

@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"menu-service/dto/response"
-	"menu-service/menu/entity"
+	"study-service/dto/response"
+	"study-service/menu/entity"
 )
 
 func MakeMenuSummary(menu entity.Menu) (menuSummary response.MenuSummary) {
