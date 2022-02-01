@@ -67,3 +67,11 @@ CREATE TABLE IF NOT EXISTS `members`
     INDEX `idx_members_mobile` (`mobile` ASC),
     UNIQUE INDEX `up_members_email` (`email`)
 );
+
+create table click
+(
+    id int auto_increment,
+    created_at DATETIME not null,
+    constraint click_pk
+        primary key (id)
+);

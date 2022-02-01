@@ -33,6 +33,7 @@ func main() {
 	controller.StoreController{}.Init(e.Group("/api/store"))
 	controller.AuthController{}.Init(e.Group("/api/auth"))
 	controller.MemberController{}.Init(e.Group("/api/member"))
+	controller.ClickController{}.Init(e.Group("/api/click"))
 
 	log.Info("study Service Server Started: Port=" + config.Config.HttpPort)
 	e.Start(":" + config.Config.HttpPort)
