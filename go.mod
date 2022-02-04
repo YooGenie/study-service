@@ -3,6 +3,7 @@ module study-service
 go 1.15
 
 require (
+	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.7.2 // indirect
 	github.com/YooGenie/validate-business-number v0.0.0-20220125140655-a70ba529701e
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/validator/v10 v10.4.1
