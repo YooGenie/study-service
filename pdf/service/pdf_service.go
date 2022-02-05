@@ -27,8 +27,8 @@ type pdfService struct {
 func (pdfService) MakeHtmlByte(id int64) (filePDFName []byte, err error) {
 
 	dataHTML := &responseDto.PdfHTML{
-		Id:        id,
-		Type:     "안녕",
+		Id:   id,
+		Type: "안녕",
 	}
 
 	htmlGenerated, err := common.ParseHtmlTemplate("template/test.html", dataHTML)
@@ -48,12 +48,11 @@ func (pdfService) MakeHtmlByte(id int64) (filePDFName []byte, err error) {
 	return filePDFName, err
 }
 
-
 func (pdfService) MakeHtmlString(id int64) (filePDFName string, err error) {
 
 	dataHTML := &responseDto.PdfHTML{
-		Id:        id,
-		Type:     "안녕",
+		Id:   id,
+		Type: "안녕",
 	}
 
 	htmlGenerated, err := common.ParseHtmlTemplate("template/test.html", dataHTML)
@@ -61,8 +60,6 @@ func (pdfService) MakeHtmlString(id int64) (filePDFName string, err error) {
 		fmt.Println(err)
 		return "", err
 	}
-
-
 
 	defer os.Remove(htmlGenerated)
 

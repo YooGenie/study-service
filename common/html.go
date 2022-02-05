@@ -17,12 +17,12 @@ func ParseHtmlTemplate(filePath string, data interface{}) (string, error) {
 
 		return "", err
 	}
-	fmt.Println("t : ",t)
+
 	//HTML 파일 생성
 	fileName := "test.html"
 
 	fileWriter , err := os.Create(fileName)
-	fmt.Println("fileWriter : ",fileWriter)
+
 	if err != nil {
 		return "", err
 	}

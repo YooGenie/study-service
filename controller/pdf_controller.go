@@ -3,7 +3,6 @@ package controller
 import (
 	"github.com/labstack/echo"
 	log "github.com/sirupsen/logrus"
-	"net/http"
 	"strconv"
 	"study-service/common/errors"
 	"study-service/pdf/service"
@@ -30,6 +29,6 @@ func (PdfController) GetPdf(ctx echo.Context) error {
 
 
 
-	return ctx.JSON(http.StatusOK, makeHtml)
+	return ctx.File(makeHtml)
 
 }
