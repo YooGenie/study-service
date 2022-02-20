@@ -12,9 +12,10 @@ import (
 )
 
 func main() {
-	config.ConfigureEnvironment("./", "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY")
-	xormDb := config.ConfigureDatabase()
-	config.ConfigureLogger()
+	config.ConfigureEnvironment("./", "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY") //환경변수 설정
+	xormDb := config.ConfigureDatabase() //DB 설정
+
+	config.ConfigureLogger() // log 설정
 	// 이부분이 없으니까 500번 에러가 뜬다. 이유 찾아보기!
 	defer func() {
 		if r := recover(); r != nil {
@@ -34,7 +35,7 @@ func main() {
 	controller.AuthController{}.Init(e.Group("/api/auth"))
 	controller.MemberController{}.Init(e.Group("/api/member"))
 	controller.ClickController{}.Init(e.Group("/api/click"))
-	controller.PdfController{}.Init(e.Group("/api/pdf"))
+	//controller.PdfController{}.Init(e.Group("/api/pdf"))
 
 	log.Info("study Service Server Started: Port=" + config.Config.HttpPort)
 	e.Start(":" + config.Config.HttpPort)
