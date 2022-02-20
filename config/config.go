@@ -45,23 +45,26 @@ func InitConfig(cfg string) {
 
 // 서비스 무관하게 공통으로 사용하는 부분
 func ConfigureEnvironment(path string, env ...string) {
-	configor.Load(&Config, path+"config/config.json")
+	// 	"github.com/jinzhu/configor" import 해서 설정파일을 읽을 때 사용한다.
+	configor.Load(&Config, path+"config/config.json") //배포 환경에 따른 설정 파일(json)을 로딩한다.
 	properties := make(map[string]string)
 
-	for _, key := range env {
-		arg := os.Getenv(key)
+	//env가 1) STUDY_GENIE_DB_PASSWORD 2) STUDY_GENIE_DB_PASSWORD => 키값이 된다.
+	for _, key := range env { //환경변수의 키-값 쌍을 설정
+		arg := os.Getenv(key) //환경변수의 키-값 쌍을 설정하고 키에 따른 값을 가져온다. => 환경변수 읽기  // os.Setenv() 환경변수 쓰기
 		if len(arg) == 0 {
 			panic(fmt.Errorf("No %s system env variable\n", key))
 		}
-		properties[key] = arg
+		properties[key] = arg //키에 값을 저장한다. key값은 STUDY_GENIE_DB_PASSWORD이고 value는 내가 컴퓨터에 저장해 놓는 환경변수 값을 가져온다.
 	}
 
 	afterPropertiesSet(properties)
 }
 
 // 서비스별 처리 로직이 달라지는 부분.
-func afterPropertiesSet(properties map[string]string) {
-	Config.Encrypt.EncryptKey = properties["STUDY_GENIE_ENCRYPT_KEY"]
+func afterPropertiesSet(properties map[string]string) { //환경변수를 가지고 와서 Config 구조체 안에 값을 넣어준다.
+	Config.Encrypt.EncryptKey = properties["STUDY_GENIE_ENCRYPT_KEY"] //Config 구조체 안에서 Encrypt안에 EncryptKey에 값을 넣어준다.
+
 	if properties["STUDY_GENIE_DB_PASSWORD"] != "" {
 		Config.Database.ConnectionString = fmt.Sprintf("%s:%s%s", Config.Database.User, properties["STUDY_GENIE_DB_PASSWORD"], Config.Database.Connection)
 	} else {
