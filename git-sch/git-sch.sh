@@ -16,7 +16,7 @@ mkdir -p $FileDir
 
 echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
-cd $GitRep
+#cd $GitRep
 git add .
 git commit -m "#$Today 프로그래머스"
 git push genie 15
