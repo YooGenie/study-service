@@ -15,7 +15,11 @@ mkdir -p $FileDir
 
 echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
+CommitMsg= cat $FileName | head -1
+
+
 #cd $GitRep
 git add .
-git commit -m "#$Today 프로그래머스"
+git status
+git commit -m "#${CommitMsg:2}"
 git push genie -f 15
