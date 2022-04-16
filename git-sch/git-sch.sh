@@ -7,7 +7,7 @@ Day=$Y$M$D
 Today=$Y-$M-$D
 GitRep="study-service"
 
-HomeDir="/Users/bsit/go/src/study/study-service"
+HomeDir="/bsit/go/src/study/study-service"
 GitDir="$HomeDir/$GitRep"
 FileDir="$HomeDir/$GitRep/auto"
 FileName="$Day".go
