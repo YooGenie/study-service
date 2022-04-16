@@ -21,5 +21,5 @@ CommitMsg= cat $FileName | head -1
 #cd $GitRep
 git add .
 git status
-git commit -m "#${CommitMsg:2}"
+git commit -m "#$CommitMsg"
 git push genie -f 15
