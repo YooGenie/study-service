@@ -7,6 +7,7 @@ Day=$Y$M$D
 Today=$Y-$M-$D
 GitRep="study-service"
 
+HomeDir= "/home/ubuntu"
 GitDir="$HomeDir/$GitRep"
 FileDir="$HomeDir/$GitRep/auto"
 FileName="$Day".go
@@ -17,7 +18,6 @@ echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
 
 #cd $GitRep
-
 
 git add .
 git status
