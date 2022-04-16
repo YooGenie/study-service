@@ -14,14 +14,15 @@ FileName="$Day".go
 
 #mkdir -p $FileDir
 
-git checkout -b 17
+
 
 echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
 
 #cd $GitRep
 
+
 git add .
 git status
 git commit -m "#$Today 프로그래머스"
-git push genie -f 17
+git push genie  17
