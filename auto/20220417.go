@@ -3,6 +3,6 @@ package auto
 
 import "fmt"
 
-func al20220416()  {
+func al20220417()  {
 	fmt.Println("테스트")
 }
