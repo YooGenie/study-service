@@ -12,7 +12,7 @@ GitDir="$GitRep"
 FileDir="$GitRep/auto"
 FileName= "$Day".go
 
-mkdir -p $FileDir
+#mkdir -p $FileDir
 
 echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
