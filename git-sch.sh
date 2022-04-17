@@ -10,11 +10,11 @@ GitRep="study-service"
 #HomeDir= "/home/ubuntu"
 GitDir="$GitRep"
 FileDir="$GitRep/auto"
-FileName= "$Day".go
+FileName= "20220417".go
 
 #mkdir -p $FileDir
 
-echo "#$Today 프로그래머스" >> $FileDir/$FileName
+# echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
 
 #cd $GitRep
