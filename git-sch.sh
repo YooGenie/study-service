@@ -10,7 +10,7 @@ GitRep="study-service"
 #HomeDir= "/home/ubuntu"
 GitDir="$GitRep"
 FileDir="$GitRep/auto"
-FileName= "$Day".go
+FileName= "$Day_1".go
 
 #mkdir -p $FileDir
 
