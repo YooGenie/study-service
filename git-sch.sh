@@ -10,19 +10,14 @@ GitRep="study-service"
 HomeDir= "/home/ubuntu"
 GitDir="$HomeDir/$GitRep"
 FileDir="$HomeDir/$GitRep/auto"
-FileName="$Day".go
+FileName= "$Day".go
 
-#mkdir -p $FileDir
-
-
+mkdir -p $FileDir
 
 echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
 
-#cd $GitRep
-
-
+cd $GitRep
 git add .
-git status
 git commit -m "#$Today 프로그래머스"
-git push genie  17
+git push genie -f 17
