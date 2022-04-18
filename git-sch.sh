@@ -2,22 +2,44 @@ Y=$(date +%Y)
 M=$(date +%m)
 D=$(date +%d)
 
-Ym=$Y-$M
 Day=$Y$M$D
 Today=$Y-$M-$D
 GitRep="study-service"
 
-#HomeDir= "/home/ubuntu"
-GitDir="$GitRep"
-FileDir="$GitRep/auto"
-FileName= "20220417".go
+HomeDir="/home/ubuntu"
+GitDir="$HomeDir/$GitRep"
+FileDir="$HomeDir/$GitRep/auto"
+FileName="$Day".go
 
-#mkdir -p $FileDir
+mkdir -p $FileDir
 
-# echo "#$Today 프로그래머스" >> $FileDir/$FileName
+git checkout -b 23
+
+echo "
+import (
+	"strconv"
+)
+
+func solution(s string) bool {
+    var result bool
+
+    if len(s)==4 || len(s)==6 {
+        if c, err :=strconv.ParseInt(s,10	,64); err !=nil {
+		result = false
+	}else if c!=0 {
+		result = true
+	}
+    }
 
 
-#cd $GitRep
+
+    return result
+}
+" >> $FileDir/$FileName
+
+
+cd $GitDir
 git add .
 git commit -m "#$Today 프로그래머스"
-git push genie -f 17
+git pull genie master
+git push genie 23
