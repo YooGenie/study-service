@@ -7,21 +7,17 @@ Day=$Y$M$D
 Today=$Y-$M-$D
 GitRep="study-service"
 
-HomeDir= "/home/ubuntu"
-GitDir="$HomeDir/$GitRep"
-FileDir="$HomeDir/$GitRep/auto"
-FileName="$Day".go
+#HomeDir= "/home/ubuntu"
+GitDir="$GitRep"
+FileDir="$GitRep/auto"
+FileName= "20220417".go
 
 #mkdir -p $FileDir
 
-git checkout -b 17
-
-echo "#$Today 프로그래머스" >> $FileDir/$FileName
+# echo "#$Today 프로그래머스" >> $FileDir/$FileName
 
 
 #cd $GitRep
-
 git add .
-git status
 git commit -m "#$Today 프로그래머스"
 git push genie -f 17

@@ -5,4 +5,6 @@ import "fmt"
 
 func al20220417()  {
 	fmt.Println("테스트")
+  fmt.Println("되라")
+  //자동화 테스트
 }
