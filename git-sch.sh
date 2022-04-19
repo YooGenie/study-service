@@ -13,7 +13,7 @@ FileName="$Day".go
 
 mkdir -p $FileDir
 
-git checkout -b 23
+#git checkout -b 23
 
 echo "
 import (
@@ -34,12 +34,13 @@ func solution(s string) bool {
 
 
     return result
+    //연습
 }
 " >> $FileDir/$FileName
 
 
 cd $GitDir
 git add .
-git commit -m "#$Today 프로그래머스"
+git commit -m "#$Today 프로그래머스2"
 git pull genie master
-git push genie 23
+git push genie -f  23
