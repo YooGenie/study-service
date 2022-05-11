@@ -15,5 +15,8 @@
 https://pink1016.tistory.com/
 
 # 이슈 내용
-### #11 환경변수 설정하는 부분 공부하기
+### #11 환경변수 설정하는 부분 공부하기 
 https://pink1016.tistory.com/101
+
+### #13 데이터베이스 처리하는 부분 공부하기
+https://pink1016.tistory.com/135
