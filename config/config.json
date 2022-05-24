@@ -12,5 +12,10 @@
     "MaxBackups": 3,
     "MaxAge": 32,
     "Compress": true
+  },
+  "Kakao": {
+    "RestApiKey": "",
+    "RedirectURL": "http://localhost:8000/api/auth",
+    "LogoutRedirectURL": "http://localhost:3000/withdraw/completion"
   }
 }
