@@ -4,6 +4,8 @@ import (
 	"context"
 	requestDto "study-service/dto/request"
 	responseDto "study-service/dto/response"
+
+	//responseDto "study-service/dto/response"
 	"study-service/click/entity"
 	"study-service/click/repository"
 	"sync"
