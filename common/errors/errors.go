@@ -16,6 +16,7 @@ var (
 	// 10007 : go-validator Validation 오류
 	ErrNotValid       = new(http.StatusBadRequest, 10008, "잘못된 요청입니다.")
 	ErrIdInconsistent = new(http.StatusInternalServerError, 90000, "ID가 일치하지 않습니다.")
+	ApiInternalError = new(http.StatusInternalServerError, 90000, "ID가 일치하지 않습니다.")
 )
 
 type ApiError struct {

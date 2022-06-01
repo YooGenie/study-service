@@ -1,4 +1,4 @@
-package response
+package dto
 
 import (
 	"encoding/json"
@@ -14,4 +14,12 @@ type MemberSummary struct {
 	Role     string          `json:"role"`
 	Created  json.RawMessage `json:"created"`
 	Updated  json.RawMessage `json:"updated"`
+}
+
+type MemberJwtToken struct {
+	SignUpped       bool
+	Token           string
+	ActiveUser      bool
+	HadMobileNumber bool
+	OrgMember       bool
 }

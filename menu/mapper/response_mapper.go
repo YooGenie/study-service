@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"study-service/dto/response"
+	response "study-service/dto/response"
 	"study-service/menu/entity"
 )
 

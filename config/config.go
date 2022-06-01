@@ -25,6 +25,11 @@ var Config = struct {
 	Service struct {
 		Name string
 	}
+	Kakao struct {
+		RestApiKey        string
+		RedirectURL       string
+		LogoutRedirectURL string
+	}
 	Log struct {
 		ShowSql    bool
 		Path       string
@@ -64,6 +69,7 @@ func ConfigureEnvironment(path string, env ...string) {
 // 서비스별 처리 로직이 달라지는 부분.
 func afterPropertiesSet(properties map[string]string) { //환경변수를 가지고 와서 Config 구조체 안에 값을 넣어준다.
 	Config.Encrypt.EncryptKey = properties["STUDY_GENIE_ENCRYPT_KEY"] //Config 구조체 안에서 Encrypt안에 EncryptKey에 값을 넣어준다.
+	Config.Kakao.RestApiKey = properties["KAKAO_API_KEY"]
 
 	if properties["STUDY_GENIE_DB_PASSWORD"] != "" {
 		Config.Database.ConnectionString = fmt.Sprintf("%s:%s%s", Config.Database.User, properties["STUDY_GENIE_DB_PASSWORD"], Config.Database.Connection)

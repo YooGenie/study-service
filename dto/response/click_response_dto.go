@@ -1,4 +1,4 @@
-package response
+package dto
 
 type ClickSummary struct {
 	Id                         int64          `json:"id"`

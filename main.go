@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	config.ConfigureEnvironment("./", "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY") //환경변수 설정
+	config.ConfigureEnvironment("./", "STUDY_GENIE_DB_PASSWORD", "STUDY_GENIE_ENCRYPT_KEY", "KAKAO_API_KEY") //환경변수 설정
 
 	//DB 트랜잭션을 처리하기 위해서 하나의 트랙잭션을 관리한다. API를 콜할 때마다 DB를 연결하면 트랙잭션을 처리할 수 없다.
 	//처음 한번만 사용한다 그래서 미들웨어에서 사용할 수 있도록 구현해야한다.
