@@ -7,7 +7,7 @@ import (
 
 func ConfigureEcho() *echo.Echo {
 	e := echo.New()
-	//e.Validator = RegisterValidator()
+	e.Validator = RegisterValidator()
 	e.HideBanner = true
 
 	e.Pre(middleware.RemoveTrailingSlash())
