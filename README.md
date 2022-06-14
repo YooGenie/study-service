@@ -20,3 +20,6 @@ https://pink1016.tistory.com/101
 
 ### #13 데이터베이스 처리하는 부분 공부하기
 https://pink1016.tistory.com/135
+
+### #29 validator 사용방법
+https://pink1016.tistory.com/139
