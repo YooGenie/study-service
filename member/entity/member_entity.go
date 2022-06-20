@@ -37,7 +37,7 @@ func (s *Member) Create(ctx context.Context) error {
 }
 
 func (s Member) ValidatePassword(password string) (err error) {
-	if common.ComparePasswords(s.Password, password) {
+	if common.ComparePasswords(s.Password, password) { //암호화된 비번과 입력한 비번 비교하기
 		return err
 	}
 

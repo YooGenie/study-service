@@ -29,7 +29,7 @@ func (controller AuthController) Init(g *echo.Group) {
 }
 
 func (AuthController) AuthAdminWithEmailAndPassword(ctx echo.Context) (err error) {
-	var adminSignIn requestDto.AdminSignIn
+	var adminSignIn requestDto.AdminSignIn //아이디와 비밀번호
 	if err = ctx.Bind(&adminSignIn); err != nil {
 		return errors.ApiParamValidError(err)
 	}

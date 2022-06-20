@@ -28,7 +28,7 @@ func (memberRepository) FindById(ctx context.Context, email string) (memberSumma
 
 	q := common.GetDB(ctx).Table("members").Where("email=?", email)
 
-	has, err := q.Get(&memberSummary)
+	has, err := q.Get(&memberSummary) //화원이면 true 비회원이면 false
 	if err != nil {
 		return
 	}
