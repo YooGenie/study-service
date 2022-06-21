@@ -129,7 +129,7 @@ func (authService) UnlinkWithKakao(ctx context.Context, authorizeCode string) er
 }
 
 func (authService) AuthWithSignIdPassword(ctx context.Context, signIn requestDto.AdminSignIn) (token security.JwtToken, err error) {
-	memberEntity, err := memberService.MemberService().GetMemberById(ctx, signIn.Email)
+	memberEntity, err := memberService.MemberService().GetMemberById(ctx, signIn.Email) //이메일로 단건 조회하는 서비스
 	if err != nil {
 		return
 	}
@@ -140,6 +140,7 @@ func (authService) AuthWithSignIdPassword(ctx context.Context, signIn requestDto
 		return
 	}
 
+	//구조체로 만들어서 토큰으로 만들어준다
 	token, err = security.JwtAuthentication{}.GenerateJwtToken(security.UserClaim{
 		Id:    memberEntity.Email,
 		Name:  "유지니",

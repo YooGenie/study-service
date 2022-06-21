@@ -27,19 +27,23 @@ func (JwtAuthentication) GenerateJwtToken(claim UserClaim) (JwtToken, error) {
 		accessTokenClaims[key] = value
 	}
 
-	accessTokenClaims["exp"] = time.Now().Add(time.Minute * 15).Unix()
+	accessTokenClaims["exp"] = time.Now().Add(time.Minute * 15).Unix() //제한 시간 설정 15분
+
+	//토큰 생성
 	accessToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, accessTokenClaims).SignedString([]byte(config.Config.JwtSecret))
 
 	if err != nil {
 		return JwtToken{}, err
 	}
 
+	// 리플레시토큰
 	refreshTokenClaims := jwt.MapClaims{}
 	for key, value := range claimMap {
 		refreshTokenClaims[key] = value
 	}
 
-	refreshTokenClaims["exp"] = time.Now().Add(time.Hour * 24 * 7).Unix()
+	refreshTokenClaims["exp"] = time.Now().Add(time.Hour * 24 * 7).Unix() //7일짜리
+	//리플레시 토큰 생성하기
 	refreshToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshTokenClaims).SignedString([]byte(config.Config.JwtSecret))
 
 	return JwtToken{

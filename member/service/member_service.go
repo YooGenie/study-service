@@ -37,7 +37,7 @@ func (memberService) Create(ctx context.Context, creation requestDto.MemberCreat
 		Mobile:   common.SetEncrypt(creation.Mobile),
 		Name:     creation.Name,
 		Nickname: creation.Nickname,
-		Role: "MEMBER",
+		Role:     "MEMBER",
 		Created:  nil,
 		Updated:  nil,
 	}
@@ -56,9 +56,9 @@ func (memberService) Create(ctx context.Context, creation requestDto.MemberCreat
 
 func (memberService) GetMemberById(ctx context.Context, email string) (memberSummary responseDto.MemberSummary, err error) {
 	memberSummary, err = repository.MemberRepository().FindById(ctx, email)
-if err != nil {
-return
-}
+	if err != nil {
+		return
+	}
 	memberSummary.Mobile = common.GetDecrypt(memberSummary.Mobile)
-return
+	return
 }
