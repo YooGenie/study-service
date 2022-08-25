@@ -6,7 +6,7 @@ import (
 	"study-service/common"
 	"study-service/common/errors"
 	requestDto "study-service/dto/request"
-	"study-service/menu/entity"
+	entity2 "study-service/entity"
 	"sync"
 )
 
@@ -28,7 +28,7 @@ type menuRepository struct {
 }
 
 //데이터삽입부분
-func (menuRepository) Create(ctx context.Context, menu *entity.Menu) error {
+func (menuRepository) Create(ctx context.Context, menu *entity2.Menu) error {
 	db := common.GetDB(ctx)
 	_, err := db.Insert(menu)
 	if err != nil {
@@ -38,8 +38,8 @@ func (menuRepository) Create(ctx context.Context, menu *entity.Menu) error {
 	return nil
 }
 
-func (menuRepository) FindById(ctx context.Context, Id int64) (entity.Menu, error) {
-	var menu = entity.Menu{Id: Id}
+func (menuRepository) FindById(ctx context.Context, Id int64) (entity2.Menu, error) {
+	var menu = entity2.Menu{Id: Id}
 	has, err := common.GetDB(ctx).Get(&menu)
 	 if !has {
 		 err = errors.ErrNoResult
@@ -53,7 +53,7 @@ func (menuRepository) FindById(ctx context.Context, Id int64) (entity.Menu, erro
 	return menu, err
 }
 
-func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable) (menus []entity.Menu, totalCount int64, err error) {
+func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable) (menus []entity2.Menu, totalCount int64, err error) {
 
 	queryBuilder := func() xorm.Interface {
 		q := common.GetDB(ctx).Table("menu").Select("menu.*").Where("1=1")
@@ -62,7 +62,7 @@ func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable)
 	}
 
 	var results []struct {
-		entity.Menu `xorm:"extends"`
+		entity2.Menu `xorm:"extends"`
 	}
 
 	if totalCount, err = queryBuilder().Limit(pageable.PageSize).Desc("menu.id").FindAndCount(&results); err != nil {
@@ -73,7 +73,7 @@ func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable)
 	}
 
 	for _, result := range results {
-		var menu = entity.Menu{}
+		var menu = entity2.Menu{}
 		menu = result.Menu
 		menus = append(menus, menu)
 	}
@@ -81,7 +81,7 @@ func (menuRepository) FindAll(ctx context.Context, pageable requestDto.Pageable)
 	return menus, totalCount, err
 }
 
-func (menuRepository) Update(ctx context.Context, menu *entity.Menu) error {
+func (menuRepository) Update(ctx context.Context, menu *entity2.Menu) error {
 	session := common.GetDB(ctx).ID(menu.Id)
 
 	if _, err := session.Update(menu); err != nil {
@@ -91,7 +91,7 @@ func (menuRepository) Update(ctx context.Context, menu *entity.Menu) error {
 	return nil
 }
 
-func (menuRepository) Delete(ctx context.Context, menu *entity.Menu) error {
+func (menuRepository) Delete(ctx context.Context, menu *entity2.Menu) error {
 	session := common.GetDB(ctx).ID(menu.Id)
 
 	if _, err := session.Delete(menu); err != nil {

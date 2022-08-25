@@ -4,9 +4,9 @@ import (
 	"github.com/labstack/echo"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"study-service/click/service"
 	"study-service/common/errors"
 	requestDto "study-service/dto/request"
+	service2 "study-service/service"
 )
 
 type ClickController struct {
@@ -28,7 +28,7 @@ func (ClickController) Create(ctx echo.Context) error {
 		return err
 	}
 
-	err := service.ClickService().Create(ctx.Request().Context(), clickCreate)
+	err := service2.ClickService().Create(ctx.Request().Context(), clickCreate)
 	if err != nil {
 		return err
 	}

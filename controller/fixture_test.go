@@ -2,9 +2,7 @@ package controller
 
 import (
 	"fmt"
-
-	menu "study-service/menu/entity"
-	store "study-service/store/entity"
+	"study-service/entity"
 
 	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3"
@@ -16,8 +14,8 @@ type DatabaseFixture struct {
 
 func (DatabaseFixture) setUpDefault(xormEngine *xorm.Engine) {
 	xormEngine.Sync2(
-		new(menu.Menu),
-		new(store.Store),
+		new(entity.Menu),
+		new(entity.Store),
 	)
 
 	fixtures, err := testfixtures.NewFolder(xormEngine.DB().DB, &testfixtures.SQLite{}, "../testdata/db_fixtures")

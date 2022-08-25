@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"study-service/common/errors"
 	requestDto "study-service/dto/request"
-	"study-service/store/service"
+	service2 "study-service/service"
 )
 
 type StoreController struct {
@@ -33,7 +33,7 @@ func (StoreController) Create(ctx echo.Context) error {
 		return err
 	}
 
-	err := service.StoreService().Create(ctx.Request().Context(), storeCreate)
+	err := service2.StoreService().Create(ctx.Request().Context(), storeCreate)
 	if err != nil {
 		return err
 	}
@@ -47,7 +47,7 @@ func (StoreController) GetStoreById(ctx echo.Context) error {
 		return errors.ApiParamValidError(err)
 	}
 
-	menu, _ := service.StoreService().GetStoreByNo(ctx.Request().Context(), storeNo)
+	menu, _ := service2.StoreService().GetStoreByNo(ctx.Request().Context(), storeNo)
 	if err != nil {
 		return err
 	}
@@ -73,7 +73,7 @@ func (StoreController) Update(ctx echo.Context) error {
 
 	storeUpdate.No = storeNo
 
-	err = service.StoreService().Update(ctx.Request().Context(), storeUpdate)
+	err = service2.StoreService().Update(ctx.Request().Context(), storeUpdate)
 
 	return ctx.NoContent(http.StatusOK)
 }
@@ -83,7 +83,7 @@ func (StoreController) GetStores(ctx echo.Context) error {
 
 	searchParams := requestDto.SearchStoreQueryParams{}
 
-	result, err := service.StoreService().GetStores(ctx.Request().Context(), searchParams, pageable)
+	result, err := service2.StoreService().GetStores(ctx.Request().Context(), searchParams, pageable)
 	if err != nil {
 		return err
 	}
@@ -98,7 +98,7 @@ func (StoreController) Delete(ctx echo.Context) error {
 		return errors.ApiParamValidError(err)
 	}
 
-	err = service.StoreService().Delete(ctx.Request().Context(), storeNo)
+	err = service2.StoreService().Delete(ctx.Request().Context(), storeNo)
 
 	return ctx.NoContent(http.StatusOK)
 }

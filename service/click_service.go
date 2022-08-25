@@ -4,10 +4,8 @@ import (
 	"context"
 	requestDto "study-service/dto/request"
 	responseDto "study-service/dto/response"
+	entity2 "study-service/entity"
 
-	//responseDto "study-service/dto/response"
-	"study-service/click/entity"
-	"study-service/click/repository"
 	"sync"
 	"time"
 )
@@ -33,7 +31,7 @@ func (clickService) Create(ctx context.Context, creation requestDto.ClickCreate)
 		return err
 	}
 
-	click := entity.Click{
+	click := entity2.Click{
 		CreatedAt: time.Now(),
 	}
 
@@ -47,7 +45,7 @@ func (clickService) Create(ctx context.Context, creation requestDto.ClickCreate)
 }
 
 func (clickService) GetClicks(ctx context.Context, searchParams requestDto.SearchClickQueryParams, pageable requestDto.Pageable) (results responseDto.PageResult, err error) {
-	clicks, totalCount, err := repository.ClickRepository().FindAll(ctx, searchParams, pageable)
+	clicks, totalCount, err := entity2.ClickRepository().FindAll(ctx, searchParams, pageable)
 	if err != nil {
 		return
 	}

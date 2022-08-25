@@ -2,11 +2,11 @@ package mapper
 
 import (
 	"study-service/common"
-	"study-service/kakao/entity"
+	entity2 "study-service/entity"
 	"time"
 )
 
-func NewMemberForKakao(userInfo map[string]interface{}) entity.KaKaoMember {
+func NewMemberForKakao(userInfo map[string]interface{}) entity2.KaKaoMember {
 	now := time.Now()
 
 	profileImage := ""
@@ -49,7 +49,7 @@ func NewMemberForKakao(userInfo map[string]interface{}) entity.KaKaoMember {
 		}
 	}
 
-	return entity.KaKaoMember{
+	return entity2.KaKaoMember{
 		KakaoId:               int64(userInfo["id"].(float64)),
 		Nickname:              nickname,
 		ProfileImage:          profileImage,
@@ -62,7 +62,7 @@ func NewMemberForKakao(userInfo map[string]interface{}) entity.KaKaoMember {
 	}
 }
 
-func UpdateMemberForKakao(userInfo map[string]interface{}, m *entity.KaKaoMember) {
+func UpdateMemberForKakao(userInfo map[string]interface{}, m *entity2.KaKaoMember) {
 	profileImage := ""
 	nickname := ""
 	var gender *string

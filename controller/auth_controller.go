@@ -6,10 +6,10 @@ import (
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"study-service/auth/service"
 	"study-service/common/errors"
 	"study-service/config"
 	requestDto "study-service/dto/request"
+	service2 "study-service/service"
 
 	"github.com/labstack/echo"
 )
@@ -38,7 +38,7 @@ func (AuthController) AuthAdminWithEmailAndPassword(ctx echo.Context) (err error
 		return err
 	}
 
-	jwtToken, err := service.AuthService().AuthWithSignIdPassword(ctx.Request().Context(), adminSignIn)
+	jwtToken, err := service2.AuthService().AuthWithSignIdPassword(ctx.Request().Context(), adminSignIn)
 	if err != nil {
 		if err == errors.ErrAuthentication {
 			return ctx.JSON(http.StatusBadRequest, err.Error())
@@ -106,7 +106,7 @@ func (AuthController) AuthWithKakao(ctx echo.Context) (err error) {
 	kakaoErr := ctx.QueryParam("error")  //URL 주소에서 error를 뽑아 온다.
 
 	if state.State == SignUpTypeUnlink {
-		if err = service.AuthService().UnlinkWithKakao(ctx.Request().Context(), authorizeCode); err != nil {
+		if err = service2.AuthService().UnlinkWithKakao(ctx.Request().Context(), authorizeCode); err != nil {
 			log.Error(err)
 		}
 		logoutUri := fmt.Sprintf("https://kauth.kakao.com/oauth/logout?client_id=%s&logout_redirect_uri=%s",
@@ -119,7 +119,7 @@ func (AuthController) AuthWithKakao(ctx echo.Context) (err error) {
 	}
 	var redirectUri string
 
-	memberJwtToken ,err := service.AuthService().NewMemberJwtToken(ctx.Request().Context(),authorizeCode, state.State)
+	memberJwtToken ,err := service2.AuthService().NewMemberJwtToken(ctx.Request().Context(),authorizeCode, state.State)
 
 
 	if err != nil {
