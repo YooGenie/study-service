@@ -23,3 +23,6 @@ https://pink1016.tistory.com/135
 
 ### #29 validator 사용방법
 https://pink1016.tistory.com/139
+
+### #32 전체적인 구조 변경하기
+https://pink1016.tistory.com/153
