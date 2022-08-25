@@ -5,8 +5,8 @@ import (
 	"study-service/common"
 	requestDto "study-service/dto/request"
 	responseDto "study-service/dto/response"
-	"study-service/store/entity"
-	"study-service/store/repository"
+	entity2 "study-service/entity"
+	repository2 "study-service/repository"
 	"sync"
 )
 
@@ -29,7 +29,7 @@ type storeService struct {
 func (storeService) Create(ctx context.Context, creation requestDto.StoreCreate) (err error) {
 
 	password, err := common.HashAndSalt(creation.Password)
-	store := entity.Store{
+	store := entity2.Store{
 		Id:                         creation.Id,
 		Password:                   password,
 		Mobile:                     common.SetEncrypt(creation.Mobile),
@@ -51,7 +51,7 @@ func (storeService) Create(ctx context.Context, creation requestDto.StoreCreate)
 }
 
 func (storeService) GetStoreByNo(ctx context.Context, storeNo int64) (storeSummary responseDto.StoreSummary, err error) {
-	storeSummary, err = repository.StoreRepository().FindByNo(ctx, storeNo)
+	storeSummary, err = repository2.StoreRepository().FindByNo(ctx, storeNo)
 	if err != nil {
 		return
 	}
@@ -63,7 +63,7 @@ func (storeService) GetStoreByNo(ctx context.Context, storeNo int64) (storeSumma
 func (storeService) Update(ctx context.Context, edition requestDto.StoreUpdate) (err error) {
 
 	password, err := common.HashAndSalt(edition.Password)
-	store := entity.Store{
+	store := entity2.Store{
 		No:                         edition.No,
 		Id:                         edition.Id,
 		Password:                   password,
@@ -86,7 +86,7 @@ func (storeService) Update(ctx context.Context, edition requestDto.StoreUpdate) 
 }
 
 func (storeService) GetStores(ctx context.Context, searchParams requestDto.SearchStoreQueryParams, pageable requestDto.Pageable) (results responseDto.PageResult, err error) {
-	menus, totalCount, err := repository.StoreRepository().FindAll(ctx, searchParams, pageable)
+	menus, totalCount, err := repository2.StoreRepository().FindAll(ctx, searchParams, pageable)
 	if err != nil {
 		return
 	}
@@ -102,7 +102,7 @@ func (storeService) GetStores(ctx context.Context, searchParams requestDto.Searc
 }
 
 func (storeService) Delete(ctx context.Context, storeNo int64) (err error) {
-	deleteStore := entity.Store{No: storeNo}
+	deleteStore := entity2.Store{No: storeNo}
 	if err = deleteStore.Delete(ctx); err != nil {
 		return err
 	}
@@ -111,7 +111,7 @@ func (storeService) Delete(ctx context.Context, storeNo int64) (err error) {
 }
 
 func (storeService) GetStoreById(ctx context.Context, storeId string) (storeSummary responseDto.StoreSummary, err error) {
-	storeSummary, err = repository.StoreRepository().FindById(ctx, storeId)
+	storeSummary, err = repository2.StoreRepository().FindById(ctx, storeId)
 	if err != nil {
 		return
 	}

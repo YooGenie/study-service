@@ -5,10 +5,9 @@ import (
 	"study-service/common"
 	requestDto "study-service/dto/request"
 	responseDto "study-service/dto/response"
+	"study-service/entity"
+	"study-service/repository"
 
-	//responseDto "study-service/dto/response"
-	"study-service/member/entity"
-	"study-service/member/repository"
 	"sync"
 )
 

@@ -5,10 +5,10 @@ import (
 	"study-service/common"
 	"study-service/common/errors"
 	responseDto "study-service/dto/response"
+	entity2 "study-service/entity"
 
 	log "github.com/sirupsen/logrus"
-	//responseDto "study-service/dto/response"
-	"study-service/kakao/entity"
+
 	"sync"
 
 	"github.com/go-xorm/xorm"
@@ -30,7 +30,7 @@ func KaKaoMemberRepository() *kaKaoMemberRepository {
 type kaKaoMemberRepository struct {
 }
 
-func (kaKaoMemberRepository) FindById(ctx context.Context, id int64) (member entity.KaKaoMember, err error) {
+func (kaKaoMemberRepository) FindById(ctx context.Context, id int64) (member entity2.KaKaoMember, err error) {
 	log.Traceln("")
 
 	session := common.GetDB(ctx)
@@ -83,7 +83,7 @@ func (kaKaoMemberRepository) FindByIdMaskMobile(ctx context.Context, id int64) (
 	return member, nil
 }
 
-func (repository kaKaoMemberRepository) FindByKakaoId(ctx context.Context, kakaoId int64) (member entity.KaKaoMember, err error) {
+func (repository kaKaoMemberRepository) FindByKakaoId(ctx context.Context, kakaoId int64) (member entity2.KaKaoMember, err error) {
 	log.Traceln("")
 	session := common.GetDB(ctx).Where("withdraw_at is NULL")
 	if member, err = repository.GetMemberFromDB(session, kakaoId); err != nil {
@@ -92,7 +92,7 @@ func (repository kaKaoMemberRepository) FindByKakaoId(ctx context.Context, kakao
 	return
 }
 
-func (repository kaKaoMemberRepository) FindByKakaoIdWithoutWithdraw(ctx context.Context, kakaoId int64) (member entity.KaKaoMember, err error) {
+func (repository kaKaoMemberRepository) FindByKakaoIdWithoutWithdraw(ctx context.Context, kakaoId int64) (member entity2.KaKaoMember, err error) {
 	log.Traceln("")
 	session := common.GetDB(ctx).Desc("id")
 	if member, err = repository.GetMemberFromDB(session, kakaoId); err != nil {
@@ -101,7 +101,7 @@ func (repository kaKaoMemberRepository) FindByKakaoIdWithoutWithdraw(ctx context
 	return
 }
 
-func (kaKaoMemberRepository) GetMemberFromDB(session *xorm.Session, kakaoId int64) (member entity.KaKaoMember, err error) {
+func (kaKaoMemberRepository) GetMemberFromDB(session *xorm.Session, kakaoId int64) (member entity2.KaKaoMember, err error) {
 	log.Traceln("")
 	member.KakaoId = kakaoId
 	_, err = session.Get(&member)
@@ -112,7 +112,7 @@ func (kaKaoMemberRepository) GetMemberFromDB(session *xorm.Session, kakaoId int6
 	return
 }
 
-func (kaKaoMemberRepository) Create(ctx context.Context, member *entity.KaKaoMember) (memberId int64, err error) {
+func (kaKaoMemberRepository) Create(ctx context.Context, member *entity2.KaKaoMember) (memberId int64, err error) {
 	log.Traceln("")
 
 	session := common.GetDB(ctx)
@@ -127,7 +127,7 @@ func (kaKaoMemberRepository) Create(ctx context.Context, member *entity.KaKaoMem
 	return
 }
 
-func (kaKaoMemberRepository) Update(ctx context.Context, member *entity.KaKaoMember) (err error) {
+func (kaKaoMemberRepository) Update(ctx context.Context, member *entity2.KaKaoMember) (err error) {
 	log.Traceln("")
 
 	if _, err = common.GetDB(ctx).ID(member.Id).UseBool("term_text_message_agreed", "term_email_agreed").Update(member); err != nil {

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"study-service/common/errors"
 	requestDto "study-service/dto/request"
-	"study-service/menu/service"
+	service2 "study-service/service"
 
 	"net/http"
 )
@@ -35,7 +35,7 @@ func (MenuController) Create(ctx echo.Context) error {
 	}
 
 	//서비스부분 연결
-	err := service.MenuService().CreateMenu(ctx.Request().Context(), menuCreate)
+	err := service2.MenuService().CreateMenu(ctx.Request().Context(), menuCreate)
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func (MenuController) GetMenuById(ctx echo.Context) error {
 		return errors.ApiParamValidError(err)
 	}
 
-	menu, err := service.MenuService().GetMenuById(ctx.Request().Context(), menuId)
+	menu, err := service2.MenuService().GetMenuById(ctx.Request().Context(), menuId)
 	if err != nil {
 		return err
 	}
@@ -61,7 +61,7 @@ func (MenuController) GetMenuById(ctx echo.Context) error {
 func (MenuController) GetMenu(ctx echo.Context) error {
 	pageable := requestDto.GetPageableFromRequest(ctx)
 
-	result, err := service.MenuService().GetMenu(ctx.Request().Context(), pageable)
+	result, err := service2.MenuService().GetMenu(ctx.Request().Context(), pageable)
 	if err != nil {
 		return err
 	}
@@ -85,7 +85,7 @@ func (MenuController) Update(ctx echo.Context) error {
 
 	menuUpdate.Id = menuId
 
-	err = service.MenuService().UpdateMenu(ctx.Request().Context(), menuUpdate)
+	err = service2.MenuService().UpdateMenu(ctx.Request().Context(), menuUpdate)
 
 	return ctx.JSON(http.StatusOK, nil)
 }
@@ -96,7 +96,7 @@ func (MenuController) Delete(ctx echo.Context) error {
 		return errors.ApiParamValidError(err)
 	}
 
-	err = service.MenuService().DeleteMenu(ctx.Request().Context(), menuId)
+	err = service2.MenuService().DeleteMenu(ctx.Request().Context(), menuId)
 
 	return ctx.JSON(http.StatusOK, nil)
 

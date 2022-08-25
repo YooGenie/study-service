@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/go-playground/validator/v10"
-	val "study-service/validator"
+	val "study-service/common/validator"
 )
 
 type CustomValidator struct {

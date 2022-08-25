@@ -5,7 +5,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"strconv"
 	"study-service/common/errors"
-	"study-service/pdf/service"
+	service2 "study-service/service"
 )
 
 type PdfController struct {
@@ -25,7 +25,7 @@ func (PdfController) GetPdf(ctx echo.Context) error {
 
 
 		//makeHtml, _ := service.PdfService().MakeHtmlByte(donationId)
-		makeHtml, _ := service.PdfService().MakeHtmlString(donationId)
+		makeHtml, _ := service2.PdfService().MakeHtmlString(donationId)
 
 
 

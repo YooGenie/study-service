@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
-	//"fmt"
-	//responseDto "study-service/dto/response"
+	"study-service/entity"
+	 "study-service/repository"
 
-	"study-service/kakao/entity"
-	"study-service/kakao/repository"
+
+
 	"sync"
 
 	log "github.com/sirupsen/logrus"
@@ -17,7 +17,7 @@ var (
 	kakaoMemberServiceInstance *kakaoMemberService
 )
 
-func MemberService() *kakaoMemberService {
+func KaKaoMemberService() *kakaoMemberService {
 	kakaoMemberServiceOnce.Do(func() {
 		kakaoMemberServiceInstance = &kakaoMemberService{}
 	})

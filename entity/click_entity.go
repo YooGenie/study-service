@@ -9,7 +9,7 @@ import (
 )
 
 type Click struct {
-	Id   int64     `xorm:"id pk autoincr"`
+	Id        int64     `xorm:"id pk autoincr"`
 	CreatedAt time.Time `xorm:"created" `
 }
 

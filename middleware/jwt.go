@@ -1,4 +1,4 @@
-package security
+package middleware
 
 import (
 	"encoding/json"

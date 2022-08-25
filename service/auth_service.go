@@ -3,18 +3,15 @@ package service
 import (
 	"context"
 	log "github.com/sirupsen/logrus"
+	"study-service/adapter"
 	"study-service/common/errors"
 	auth "study-service/config/authentication"
 	requestDto "study-service/dto/request"
 	responseDto "study-service/dto/response"
-	"study-service/kakao/adapter"
-	"study-service/kakao/entity"
-	"study-service/kakao/mapper"
-	"study-service/kakao/repository"
-	"study-service/kakao/service"
-	member "study-service/member/entity"
-	memberService "study-service/member/service"
-	"study-service/security"
+	"study-service/entity"
+	"study-service/mapper"
+	"study-service/middleware"
+	"study-service/repository"
 	"sync"
 )
 
@@ -38,7 +35,6 @@ const (
 	SignUpTypeNew    = "new"
 )
 
-
 func (this authService) NewMemberJwtToken(ctx context.Context, authorizeCode string, signUpType string) (responseDto.MemberJwtToken, error) {
 	log.Traceln("")
 
@@ -55,7 +51,6 @@ func (this authService) NewMemberJwtToken(ctx context.Context, authorizeCode str
 	token, err := auth.CreateToken(member.Id, member.Nickname, "member")
 	orgMember := false
 
-
 	return responseDto.MemberJwtToken{
 		SignUpped:       isSignUp,
 		Token:           token,
@@ -64,7 +59,6 @@ func (this authService) NewMemberJwtToken(ctx context.Context, authorizeCode str
 		OrgMember:       orgMember,
 	}, err
 }
-
 
 func (authService) AuthWithKakao(ctx context.Context, authorizeCode string, signUpType string) (isSignUp bool, member entity.KaKaoMember, err error) {
 	userInfo, _, _, err := adapter.KakaoAdapter().GetKakaoUserInfo(ctx, authorizeCode)
@@ -86,7 +80,7 @@ func (authService) AuthWithKakao(ctx context.Context, authorizeCode string, sign
 	}
 	if findMember.IsSignUp() { // 이미 가입했으면 업데이트
 		mapper.UpdateMemberForKakao(userInfo, &findMember)
-		if err = service.MemberService().Update(ctx, &findMember); err != nil {
+		if err = KaKaoMemberService().Update(ctx, &findMember); err != nil {
 			return
 		}
 
@@ -97,7 +91,7 @@ func (authService) AuthWithKakao(ctx context.Context, authorizeCode string, sign
 
 	// 신규가입
 	newMember := mapper.NewMemberForKakao(userInfo)
-	if _, err = service.MemberService().Create(ctx, &newMember); err != nil {
+	if _,err = KaKaoMemberService().Create(ctx, &newMember); err != nil {
 		return
 	}
 	isSignUp = true
@@ -118,8 +112,8 @@ func (authService) UnlinkWithKakao(ctx context.Context, authorizeCode string) er
 	//카카오 정보를 가져온다
 	kakaoUserInfo, _, token, err := adapter.KakaoAdapter().GetKakaoUserInfo(ctx, authorizeCode)
 
-	member, err := service.MemberService().GetMemberByKakaoId(ctx, int64(kakaoUserInfo["id"].(float64)))
-	if err = service.MemberService().Withdraw(ctx, member.Id); err != nil {
+	member, err := KaKaoMemberService().GetMemberByKakaoId(ctx, int64(kakaoUserInfo["id"].(float64)))
+	if err = KaKaoMemberService().Withdraw(ctx, member.Id); err != nil {
 		return err
 	}
 	if err = adapter.KakaoAdapter().Unlink(ctx, token); err != nil {
@@ -128,20 +122,20 @@ func (authService) UnlinkWithKakao(ctx context.Context, authorizeCode string) er
 	return nil
 }
 
-func (authService) AuthWithSignIdPassword(ctx context.Context, signIn requestDto.AdminSignIn) (token security.JwtToken, err error) {
-	memberEntity, err := memberService.MemberService().GetMemberById(ctx, signIn.Email) //이메일로 단건 조회하는 서비스
+func (authService) AuthWithSignIdPassword(ctx context.Context, signIn requestDto.AdminSignIn) (token middleware.JwtToken, err error) {
+	memberEntity, err := MemberService().GetMemberById(ctx, signIn.Email) //이메일로 단건 조회하는 서비스
 	if err != nil {
 		return
 	}
 	//비밀번호 유효성
-	err = member.Member{}.ValidatePassword(signIn.Password)
+	err = entity.Member{}.ValidatePassword(signIn.Password)
 	if err != nil {
 		err = errors.ErrAuthentication
 		return
 	}
 
 	//구조체로 만들어서 토큰으로 만들어준다
-	token, err = security.JwtAuthentication{}.GenerateJwtToken(security.UserClaim{
+	token, err = middleware.JwtAuthentication{}.GenerateJwtToken(middleware.UserClaim{
 		Id:    memberEntity.Email,
 		Name:  "유지니",
 		Roles: memberEntity.Role,

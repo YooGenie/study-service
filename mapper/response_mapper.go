@@ -2,10 +2,10 @@ package mapper
 
 import (
 	response "study-service/dto/response"
-	"study-service/menu/entity"
+	entity2 "study-service/entity"
 )
 
-func MakeMenuSummary(menu entity.Menu) (menuSummary response.MenuSummary) {
+func MakeMenuSummary(menu entity2.Menu) (menuSummary response.MenuSummary) {
 	menuSummary = response.MenuSummary{
 		Id:          menu.Id,
 		Name:        menu.Name,
@@ -20,7 +20,7 @@ func MakeMenuSummary(menu entity.Menu) (menuSummary response.MenuSummary) {
 	return
 }
 
-func MakeMenuSummaries(menus []entity.Menu) (menuSummary []response.MenuSummary) {
+func MakeMenuSummaries(menus []entity2.Menu) (menuSummary []response.MenuSummary) {
 	for _, menu := range menus {
 		menuSummary = append(menuSummary, MakeMenuSummary(menu))
 	}

@@ -3,13 +3,13 @@ package mapper
 import (
 	log "github.com/sirupsen/logrus"
 	requestDto "study-service/dto/request"
-	"study-service/menu/entity"
+	entity2 "study-service/entity"
 	"time"
 )
 
 
-func NewMenu(creation requestDto.MenuCreate) (menu entity.Menu, err error) {
-	menu = entity.Menu{
+func NewMenu(creation requestDto.MenuCreate) (menu entity2.Menu, err error) {
+	menu = entity2.Menu{
 		Name:        creation.Name,
 		Price:       creation.Price,
 		CreatedAt:   time.Now(),
@@ -22,7 +22,7 @@ func NewMenu(creation requestDto.MenuCreate) (menu entity.Menu, err error) {
 	return
 }
 
-func UpdateMenu(edition requestDto.MenuUpdate,  menu *entity.Menu) (err error) {
+func UpdateMenu(edition requestDto.MenuUpdate,  menu *entity2.Menu) (err error) {
 	log.Infoln("")
 
 	menu.Id =edition.Id

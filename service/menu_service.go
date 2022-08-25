@@ -4,9 +4,9 @@ import (
 	"context"
 	requestDto "study-service/dto/request"
 	responseDto "study-service/dto/response"
+	repository2 "study-service/repository"
 
-	"study-service/menu/mapper"
-	"study-service/menu/repository"
+	"study-service/mapper"
 	"sync"
 )
 
@@ -31,7 +31,7 @@ func (menuService) CreateMenu(ctx context.Context, creation requestDto.MenuCreat
 	if err != nil {
 		return
 	}
-	if err = repository.MenuRepository().Create(ctx, &newMenu); err != nil {
+	if err = repository2.MenuRepository().Create(ctx, &newMenu); err != nil {
 		return err
 	}
 	return err
@@ -39,7 +39,7 @@ func (menuService) CreateMenu(ctx context.Context, creation requestDto.MenuCreat
 }
 
 func (menuService) GetMenuById(ctx context.Context, Id int64) (menuSummary responseDto.MenuSummary, err error) {
-	menu, err := repository.MenuRepository().FindById(ctx, Id)
+	menu, err := repository2.MenuRepository().FindById(ctx, Id)
 	if err != nil {
 		return menuSummary, err
 	}
@@ -50,7 +50,7 @@ func (menuService) GetMenuById(ctx context.Context, Id int64) (menuSummary respo
 }
 
 func (menuService) GetMenu(ctx context.Context, pageable requestDto.Pageable) (results responseDto.PageResult, err error) {
-	menus, totalCount, err := repository.MenuRepository().FindAll(ctx, pageable)
+	menus, totalCount, err := repository2.MenuRepository().FindAll(ctx, pageable)
 
 	menuSummaries := mapper.MakeMenuSummaries(menus)
 
@@ -63,7 +63,7 @@ func (menuService) GetMenu(ctx context.Context, pageable requestDto.Pageable) (r
 }
 
 func (menuService) UpdateMenu(ctx context.Context, edition requestDto.MenuUpdate) (err error) {
-	menu, err := repository.MenuRepository().FindById(ctx, edition.Id)
+	menu, err := repository2.MenuRepository().FindById(ctx, edition.Id)
 	if err != nil {
 		return
 	}
@@ -73,7 +73,7 @@ func (menuService) UpdateMenu(ctx context.Context, edition requestDto.MenuUpdate
 		return err
 	}
 
-	if err = repository.MenuRepository().Update(ctx, &menu); err != nil {
+	if err = repository2.MenuRepository().Update(ctx, &menu); err != nil {
 		return  err
 	}
 
@@ -81,10 +81,10 @@ func (menuService) UpdateMenu(ctx context.Context, edition requestDto.MenuUpdate
 }
 
 func (menuService) DeleteMenu(ctx context.Context, Id int64) error {
-	menu, err := repository.MenuRepository().FindById(ctx, Id)
+	menu, err := repository2.MenuRepository().FindById(ctx, Id)
 	if err != nil {
 		return err
 	}
 
-	return repository.MenuRepository().Delete(ctx, &menu)
+	return repository2.MenuRepository().Delete(ctx, &menu)
 }
