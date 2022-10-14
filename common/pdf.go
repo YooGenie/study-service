@@ -18,6 +18,7 @@ func HtmlToPdfByte(htmlStr string) ([]byte, error) {
 	}
 
 	pdfg.AddPage(wkhtml.NewPageReader(strings.NewReader(htmlStr)))
+
 	// Create PDF document in internal buffer
 	err = pdfg.Create()
 	if err != nil {
@@ -39,19 +40,34 @@ func HtmlToPdfByte(htmlStr string) ([]byte, error) {
 func HtmlToPdfString(htmlStr string) (string, error) {
 	log.Traceln("")
 
+
+
+
+	//enable_local_file_access: true
+
 	pdfg, err := wkhtml.NewPDFGenerator()
 	if err != nil {
 		log.Println(err)
 		return "", err
 	}
 
+
+	
 	pdfg.AddPage(wkhtml.NewPageReader(strings.NewReader(htmlStr)))
+
+	access := wkhtml.NewPageReader(strings.NewReader(htmlStr)).PageOptions.EnableLocalFileAccess
+	access.Set(true) //enable-local-file-access
+
+
+
 	// Create PDF document in internal buffer
 	err = pdfg.Create()
 	if err != nil {
 		log.Println(err)
 		return "", err
 	}
+
+
 
 	fileName := "./genie.pdf"
 	//Your Pdf Name

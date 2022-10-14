@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 	log "github.com/sirupsen/logrus"
 	"strconv"
@@ -76,6 +77,7 @@ func (MenuController) Update(ctx echo.Context) error {
 	}
 
 	menuUpdate := requestDto.MenuUpdate{}
+	fmt.Println(menuUpdate.Id)
 	if err = ctx.Bind(&menuUpdate); err != nil {
 		return errors.ApiParamValidError(err)
 	}
