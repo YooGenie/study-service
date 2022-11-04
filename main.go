@@ -26,12 +26,16 @@ func main() {
 			os.Exit(1)
 		}
 	}()
+
+	//에코함수 불러오기
 	e := config.ConfigureEcho()
 
 	e.GET("/", func(c echo.Context) error { return c.NoContent(http.StatusOK) })
-	e.Use(handler.CreateDatabaseContext(xormDb))
-	//e.Use(handler.InitUserClaimMiddleware())
-	//e.HTTPErrorHandler = handler.CustomHTTPErrorHandler
+	e.Use(handler.CreateDatabaseContext(xormDb))  // 뭐를 부르던지 무조건 와서 실행해서 데이터 베이스 컨텍스트를 만들어 주는 것이다. DB를 연결 해주는 거니까 모두 필요하다.
+	//e.Use(handler.InitUserClaimMiddleware()) // 사용자 정보 토큰 만들어 주는 것 이것도 모든 API에 다 사용하는데 각각에 적어주는 것보다 미들웨어안에 적어 넣어으면 자동으로 실행 된다.
+	//e.HTTPErrorHandler = handler.CustomHTTPErrorHandler // 메시지와 관리를 하기 위해서 에러핸드링 해주는 것이다. 에러가 떨어질 때 자동으로 에러 핸들러를 불러서 에러를 컨트롤 해준다.
+
+
 
 	controller.MenuController{}.Init(e.Group("/api/menu"))
 	controller.StoreController{}.Init(e.Group("/api/store"))
