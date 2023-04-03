@@ -3,8 +3,6 @@ package config
 import (
 	"fmt"
 	"github.com/jinzhu/configor"
-	"github.com/sirupsen/logrus"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 )
 
@@ -78,31 +76,31 @@ func afterPropertiesSet(properties map[string]string) { //환경변수를 가지
 	}
 }
 
-func ConfigureLogger() {
-	lum := &lumberjack.Logger{
-		Filename:   Config.Log.Path,
-		MaxSize:    Config.Log.MaxSize,
-		MaxBackups: Config.Log.MaxBackups,
-		MaxAge:     Config.Log.MaxAge,
-		Compress:   Config.Log.Compress,
-	}
-
-	logrus.SetOutput(lum)
-
-	environment := Config.Environment
-	if environment == "production" || environment == "dev" || environment == "qa" {
-		logrus.SetFormatter(&logrus.JSONFormatter{})
-	} else {
-		logrus.SetFormatter(&logrus.TextFormatter{
-			FullTimestamp: true,
-			ForceQuote:    true,
-		})
-	}
-
-	// Only log the warning severity or above.
-	logrus.SetLevel(logrus.TraceLevel)
-
-	logrus.SetReportCaller(true)
-
-	logrus.Infoln("Log Service Started")
-}
+//func ConfigureLogger() {
+//	lum := &lumberjack.Logger{
+//		Filename:   Config.Log.Path,
+//		MaxSize:    Config.Log.MaxSize,
+//		MaxBackups: Config.Log.MaxBackups,
+//		MaxAge:     Config.Log.MaxAge,
+//		Compress:   Config.Log.Compress,
+//	}
+//
+//	logrus.SetOutput(lum)
+//
+//	environment := Config.Environment
+//	if environment == "production" || environment == "dev" || environment == "qa" {
+//		logrus.SetFormatter(&logrus.JSONFormatter{})
+//	} else {
+//		logrus.SetFormatter(&logrus.TextFormatter{
+//			FullTimestamp: true,
+//			ForceQuote:    true,
+//		})
+//	}
+//
+//	// Only log the warning severity or above.
+//	logrus.SetLevel(logrus.TraceLevel)
+//
+//	logrus.SetReportCaller(true)
+//
+//	logrus.Infoln("Log Service Started")
+//}
