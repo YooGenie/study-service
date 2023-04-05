@@ -1,9 +1,13 @@
 {
   "HttpPort": "9999",
+  "Environment": "local",
   "Database": {
     "Driver": "mysql",
     "User": "root",
     "Connection": "@tcp(127.0.0.1:3306)/study?charset=utf8"
+  },
+  "Service" : {
+    "Name" : "study-service"
   },
   "Log": {
     "ShowSql": true,
@@ -17,5 +21,23 @@
     "RestApiKey": "",
     "RedirectURL": "http://localhost:8000/api/auth",
     "LogoutRedirectURL": "http://localhost:3000/withdraw/completion"
+  },
+  "Encrypt" :{
+  "EncryptKey" : ""
+},
+  "JwtSecret" : "",
+  "Mail": {
+    "Host": "smtp.gmail.com",
+    "Port": 465,
+    "User": "genie201207@gmail.com",
+    "Password": "",
+    "Sender": "genie201207@gmail.com",
+    "Receipt": {
+      "Subject": "테스트",
+      "Path": {
+        "MailBody": "template/mailbody.html",
+        "Attachment": ""
+      }
+    }
   }
 }
