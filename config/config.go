@@ -46,7 +46,7 @@ var Config = struct {
 		User     string
 		Password string
 		Sender   string
-		Receipt  struct {
+		Content  struct {
 			Subject string
 			Path    struct {
 				MailBody   string

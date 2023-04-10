@@ -36,7 +36,7 @@ type MailContent struct {
 
 func (emailService) SendMessage(ctx context.Context) (err error) {
 	// 전송할 메일 메세지생성
-	message := common.NewMessage(config.Config.Mail.Sender, config.Config.Mail.Receipt.Subject, true)
+	message := common.NewMessage(config.Config.Mail.Sender, config.Config.Mail.Content.Subject, true)
 
 	mailTo := []string{"genie201207@gmail.com"} //받는사람
 	mailCC := []string{}                        //참조
@@ -57,7 +57,7 @@ func (emailService) SendMessage(ctx context.Context) (err error) {
 	}
 
 	// 메일바디셋팅
-	if err := message.SetMailBody(config.Config.Mail.Receipt.Path.MailBody, struct{}{}); err != nil {
+	if err := message.SetMailBody(config.Config.Mail.Content.Path.MailBody, struct{}{}); err != nil {
 		return err
 	}
 

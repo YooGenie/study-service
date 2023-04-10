@@ -32,7 +32,7 @@
     "User": "genie201207@gmail.com",
     "Password": "",
     "Sender": "genie201207@gmail.com",
-    "Receipt": {
+    "Content": {
       "Subject": "테스트",
       "Path": {
         "MailBody": "template/mailbody.html",

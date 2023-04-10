@@ -29,6 +29,7 @@ func NewMessage(sender string, subject string, autoBcc bool) *Message {
 	return &Message{Subject: subject, Sender: sender, Attachments: make(map[string][]byte)}
 }
 
+// 첨부파일
 func (m *Message) AttachTemplate(filePath string, data interface{}) error {
 	_, fileName := filepath.Split(filePath)
 
@@ -48,6 +49,7 @@ func (m *Message) AttachTemplate(filePath string, data interface{}) error {
 	return nil
 }
 
+// 바디 셋팅하기
 func (m *Message) SetMailBody(filePath string, data interface{}) error {
 	// parse html
 	strTemplate, err := ParseHtmlTemplate(filePath, data)
@@ -90,7 +92,7 @@ func (m *Message) send() error {
 	}
 
 	for _, to := range receivers {
-		if err := client.Rcpt(to); err != nil {
+		if err := client.Rcpt(to); err != nil { //RCPT TO (Recipient To) 받는 사람의 전자 메일 주소를 지정
 			return errors.Wrap(err, "")
 		}
 	}
@@ -100,7 +102,8 @@ func (m *Message) send() error {
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
-	if _, err := writer.Write([]byte(m.ToBytes())); err != nil {
+
+	if _, err := writer.Write(m.ToBytes()); err != nil {
 		return errors.Wrap(err, "")
 	}
 	if err := writer.Close(); err != nil {
@@ -112,32 +115,39 @@ func (m *Message) send() error {
 	return err
 }
 
+// smtp로 연결하는 곳
 func (m *Message) connect() (*smtp.Client, error) {
+	//TLS : 개인 정보 보호 및 안전한 전송을 위해 이메일을 암호화하는 표준 인터넷 프로토콜
+
 	tlsConfig := tls.Config{
 		ServerName:         config.Config.Mail.Host,
 		InsecureSkipVerify: true,
 	}
 
+	// 지정된 네트워크 주소에 연결
 	conn, err := tls.Dial("tcp", fmt.Sprintf("%s:%d", config.Config.Mail.Host, config.Config.Mail.Port), &tlsConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
 	// defer conn.Close()
 
+	//인증 시 사용할 서버 이름으로 기존 연결 및 호스트를 사용하는 새 클라이언트를 반환한다.
 	client, clientErr := smtp.NewClient(conn, config.Config.Mail.Host)
 	if clientErr != nil {
 		return nil, errors.Wrap(err, "")
 	}
 	// defer client.Close()
 
+	// 사용자이름과 암호 사용하여 호스트를 인증
 	auth := smtp.PlainAuth("", config.Config.Mail.User, config.Config.Mail.Password, config.Config.Mail.Host)
-	if err := client.Auth(auth); err != nil {
+	if err := client.Auth(auth); err != nil { //클라이언트 인증
 		return nil, errors.Wrap(err, "")
 	}
 
 	return client, nil
 }
 
+// 메일 제목, 메일 내용을 바이트로 바꾸는 것
 func (m *Message) ToBytes() []byte {
 	withAttachments := len(m.Attachments) > 0
 
