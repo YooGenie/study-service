@@ -13,7 +13,7 @@ var (
 	xormDb *xorm.Engine
 )
 
-//DB 생성
+// DB 생성
 func ConfigureDatabase() DatabaseWrapper {
 	dbConnection := Config.Database.ConnectionString
 
@@ -25,11 +25,11 @@ func ConfigureDatabase() DatabaseWrapper {
 	}
 
 	//https://pkg.go.dev/database/sql#DB.SetMaxOpenConns 참고
-	xormDb.SetMaxOpenConns(10)  //데이터베이스에 열린 연결의 최대 수가 설정
-	xormDb.SetMaxIdleConns(5) //idle connection pool 의 최대 연결 수를 설정
+	xormDb.SetMaxOpenConns(10)                  //데이터베이스에 열린 연결의 최대 수가 설정
+	xormDb.SetMaxIdleConns(5)                   //idle connection pool 의 최대 연결 수를 설정
 	xormDb.SetConnMaxLifetime(10 * time.Minute) //연결을 재사용할 수 있는 최대 시간을 설정
 
-	xormDb.ShowSQL(Config.Log.ShowSql) //로그 수준이 INFO보다 클 경우 로거에서 SQL 문인지 여부
+	xormDb.ShowSQL(Config.Log.ShowSql)      //로그 수준이 INFO보다 클 경우 로거에서 SQL 문인지 여부
 	xormDb.Logger().SetLevel(core.LOG_INFO) //로거 레벨 설정
 
 	return DatabaseWrapper{xormDb}
@@ -39,7 +39,7 @@ type DatabaseWrapper struct {
 	*xorm.Engine
 }
 
-//세션 만드는 함수
+// 세션 만드는 함수
 func (d DatabaseWrapper) CreateSession(ctx context.Context) (*xorm.Session, context.Context) {
 	session := d.NewSession()
 

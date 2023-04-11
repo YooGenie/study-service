@@ -23,11 +23,6 @@ var Config = struct {
 	Service struct {
 		Name string
 	}
-	Kakao struct {
-		RestApiKey        string
-		RedirectURL       string
-		LogoutRedirectURL string
-	}
 	Log struct {
 		ShowSql    bool
 		Path       string
@@ -36,10 +31,29 @@ var Config = struct {
 		MaxAge     int
 		Compress   bool
 	}
+	Kakao struct {
+		RestApiKey        string
+		RedirectURL       string
+		LogoutRedirectURL string
+	}
 	Encrypt struct {
 		EncryptKey string
 	}
 	JwtSecret string
+	Mail      struct {
+		Host     string
+		Port     int
+		User     string
+		Password string
+		Sender   string
+		Content  struct {
+			Subject string
+			Path    struct {
+				MailBody   string
+				Attachment string
+			}
+		}
+	}
 }{}
 
 func InitConfig(cfg string) {
