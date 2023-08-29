@@ -10,7 +10,7 @@ import (
 	"study-service/config"
 	"study-service/config/handler"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -24,7 +24,7 @@ func init() {
 	os.Setenv("CONFIGOR_ENV", "test")
 	config.ConfigureEnvironment("../", "STUDY_GENIE_ENCRYPT_KEY")
 	xormDb = config.ConfigureDatabase()
-	config.ConfigureLogger()
+	// config.ConfigureLogger()
 
 	e := config.ConfigureEcho()
 
@@ -48,8 +48,6 @@ func (cb EchoContextBuilder) WithContext(key string, value interface{}) EchoCont
 	cb.context[key] = value
 	return cb
 }
-
-
 
 func (cb EchoContextBuilder) WithParam(key string, value string) EchoContextBuilder {
 	cb.paramKeys = append(cb.paramKeys, key)

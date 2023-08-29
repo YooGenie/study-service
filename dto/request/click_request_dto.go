@@ -1,11 +1,11 @@
 package dto
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type ClickCreate struct {
-	Click                         string `json:"click" validate:"required"`
+	Click string `json:"click" validate:"required"`
 }
 
 func (a ClickCreate) Validate(ctx echo.Context) error {
@@ -16,7 +16,6 @@ func (a ClickCreate) Validate(ctx echo.Context) error {
 
 	return nil
 }
-
 
 type SearchClickQueryParams struct {
 }

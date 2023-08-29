@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type MemberCreate struct {
@@ -20,8 +20,6 @@ func (a MemberCreate) Validate(ctx echo.Context) (err error) {
 
 	return
 }
-
-
 
 type SearchMemberQueryParams struct {
 }

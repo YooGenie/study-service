@@ -2,9 +2,10 @@ package controller
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
 	"net/http"
 	"study-service/service"
+
+	"github.com/labstack/echo/v4"
 )
 
 type EmailController struct {

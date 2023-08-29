@@ -1,8 +1,9 @@
 package dto
 
 import (
-	"github.com/labstack/echo"
 	"strconv"
+
+	"github.com/labstack/echo/v4"
 )
 
 type PageResult struct {

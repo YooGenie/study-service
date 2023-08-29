@@ -1,11 +1,12 @@
 package common
 
 import (
+	"net/http"
+
 	"github.com/go-xorm/xorm"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
-	"net/http"
 )
 
 const (

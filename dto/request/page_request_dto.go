@@ -3,7 +3,7 @@ package dto
 import (
 	"strconv"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 const Page = 1

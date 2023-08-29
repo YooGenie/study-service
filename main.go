@@ -1,14 +1,14 @@
 package main
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/labstack/echo"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 	"study-service/config"
 	"study-service/config/handler"
 	"study-service/controller"
+
+	"github.com/labstack/echo/v4"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {

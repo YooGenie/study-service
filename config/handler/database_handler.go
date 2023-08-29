@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"study-service/config"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 func CreateDatabaseContext(xormEngine config.DatabaseWrapper) echo.MiddlewareFunc {

@@ -2,8 +2,9 @@ package errors
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 var (
@@ -16,7 +17,7 @@ var (
 	// 10007 : go-validator Validation 오류
 	ErrNotValid       = new(http.StatusBadRequest, 10008, "잘못된 요청입니다.")
 	ErrIdInconsistent = new(http.StatusInternalServerError, 90000, "ID가 일치하지 않습니다.")
-	ApiInternalError = new(http.StatusInternalServerError, 90000, "ID가 일치하지 않습니다.")
+	ApiInternalError  = new(http.StatusInternalServerError, 90000, "ID가 일치하지 않습니다.")
 )
 
 type ApiError struct {
@@ -48,4 +49,3 @@ func Throw(cause error) error {
 func ApiParamValidError(err error) error {
 	return new(http.StatusBadRequest, 90001, err.Error())
 }
-
