@@ -3,14 +3,15 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/labstack/echo"
-	"github.com/stretchr/testify/assert"
-	_ "github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	responseDto "study-service/dto/response"
 	"testing"
+
+	"github.com/labstack/echo/v4"
+	"github.com/stretchr/testify/assert"
+	_ "github.com/stretchr/testify/assert"
 )
 
 func TestMenuController_Create(t *testing.T) {

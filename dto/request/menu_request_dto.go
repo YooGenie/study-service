@@ -1,8 +1,9 @@
 package dto
 
 import (
-	"github.com/labstack/echo"
 	"study-service/common/errors"
+
+	"github.com/labstack/echo/v4"
 )
 
 //요청DTO
@@ -37,7 +38,7 @@ func validatePrice(price int64) (err error) {
 }
 
 type MenuUpdate struct {
-	Id  int64  `json:"id" validate:"required"`
+	Id          int64  `json:"id" validate:"required"`
 	Name        string `json:"name" validate:"required"`
 	Price       int64  `json:"price" validate:"required"`
 	Description string `json:"description"`

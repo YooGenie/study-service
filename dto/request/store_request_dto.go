@@ -1,9 +1,10 @@
 package dto
 
 import (
-	"github.com/YooGenie/validate-business-number"
-	"github.com/labstack/echo"
 	"study-service/common/errors"
+
+	"github.com/YooGenie/validate-business-number"
+	"github.com/labstack/echo/v4"
 )
 
 type StoreCreate struct {
@@ -19,13 +20,12 @@ func (a StoreCreate) Validate(ctx echo.Context) error {
 		return err
 	}
 
-if validate.BusinessNumber(a.BusinessRegistrationNumber) {
-	err := errors.ErrNotValid
-	return err
-}
+	if validate.BusinessNumber(a.BusinessRegistrationNumber) {
+		err := errors.ErrNotValid
+		return err
+	}
 	return nil
 }
-
 
 type StoreUpdate struct {
 	No                         int64  `json:"no" validate:"required"`

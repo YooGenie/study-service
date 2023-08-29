@@ -12,14 +12,14 @@ require (
 	github.com/jinzhu/configor v1.2.0
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/labstack/echo v3.3.10+incompatible
-	github.com/labstack/gommon v0.3.0 // indirect
+	github.com/labstack/echo/v4 v4.11.1 // indirect
 	github.com/mattn/go-sqlite3 v1.14.6
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
-	github.com/stretchr/testify v1.7.0
-	github.com/valyala/fasttemplate v1.2.1 // indirect
-	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
-	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b
+	github.com/stretchr/testify v1.8.1
+	github.com/swaggo/echo-swagger v1.4.0 // indirect
+	golang.org/x/crypto v0.11.0
+	golang.org/x/net v0.12.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/testfixtures.v2 v2.6.0
 	xorm.io/core v0.7.3

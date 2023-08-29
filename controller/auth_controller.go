@@ -1,17 +1,16 @@
 package controller
 
-
-
 import (
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"study-service/common/errors"
 	"study-service/config"
 	requestDto "study-service/dto/request"
 	service2 "study-service/service"
 
-	"github.com/labstack/echo"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/labstack/echo/v4"
 )
 
 const (
@@ -76,7 +75,7 @@ func (AuthController) RedirectKakaoLoginPage(ctx echo.Context) (err error) {
 	}
 	var kakaoUrl string
 	//서비스는 Kakao API에 get 한다.
-kakaoUrl = fmt.Sprintf("https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code",
+	kakaoUrl = fmt.Sprintf("https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code",
 		config.Config.Kakao.RestApiKey, config.Config.Kakao.RedirectURL)
 	//카카오에서는 클라이언트한테 카카오 계정 로그인 요청한다.
 	//클라이언트는 카카오 계정으로 로그인한다.
@@ -103,7 +102,7 @@ func (AuthController) AuthWithKakao(ctx echo.Context) (err error) {
 		return errors.ApiParamValidError(err)
 	}
 	authorizeCode := ctx.QueryParam("code") // URL 주소에서 code를 뽑아 온다.
-	kakaoErr := ctx.QueryParam("error")  //URL 주소에서 error를 뽑아 온다.
+	kakaoErr := ctx.QueryParam("error")     //URL 주소에서 error를 뽑아 온다.
 
 	if state.State == SignUpTypeUnlink {
 		if err = service2.AuthService().UnlinkWithKakao(ctx.Request().Context(), authorizeCode); err != nil {
@@ -119,12 +118,11 @@ func (AuthController) AuthWithKakao(ctx echo.Context) (err error) {
 	}
 	var redirectUri string
 
-	memberJwtToken ,err := service2.AuthService().NewMemberJwtToken(ctx.Request().Context(),authorizeCode, state.State)
-
+	memberJwtToken, err := service2.AuthService().NewMemberJwtToken(ctx.Request().Context(), authorizeCode, state.State)
 
 	if err != nil {
 		redirectUri = fmt.Sprintf("%s?error=%s", loginUri, err.Error())
-	} else if memberJwtToken.SignUpped{
+	} else if memberJwtToken.SignUpped {
 		redirectUri = fmt.Sprintf("%s?token=%s&isSignUp=true&isActiveUser=%t&hasMobileNumber=%t&orgMember=%t", loginUri, memberJwtToken.Token, memberJwtToken.ActiveUser, memberJwtToken.HadMobileNumber, memberJwtToken.OrgMember)
 	} else {
 		redirectUri = fmt.Sprintf("%s?token=%s&isSignUp=false&isActiveUser=%t&hasMobileNumber=%t&orgMember=%t", loginUri, memberJwtToken.Token, memberJwtToken.ActiveUser, memberJwtToken.HadMobileNumber, memberJwtToken.OrgMember)
