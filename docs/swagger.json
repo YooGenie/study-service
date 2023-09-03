@@ -1,0 +1,22 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/member": {
+            "post": {
+                "description": "함수에 대한 상세 내용 쓰기",
+                "tags": [
+                    "회원"
+                ],
+                "summary": "멤버 등록",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        }
+    }
+}
