@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"study-service/common/errors"
 	requestDto "study-service/dto/request"
-	service2 "study-service/service"
+	"study-service/service"
 
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
@@ -17,6 +17,12 @@ func (controller MemberController) Init(g *echo.Group) {
 	g.POST("", controller.Create)
 }
 
+// Create
+// @Tags 회원
+// @Summary 멤버 등록
+// @Description 함수에 대한 상세 내용 쓰기
+// @Success 201 {object} nil
+// @Router /api/member [post]
 func (MemberController) Create(ctx echo.Context) error {
 	var memberCreate = requestDto.MemberCreate{}
 
@@ -29,7 +35,7 @@ func (MemberController) Create(ctx echo.Context) error {
 		return err
 	}
 
-	err := service2.MemberService().Create(ctx.Request().Context(), memberCreate)
+	err := service.MemberService().Create(ctx.Request().Context(), memberCreate)
 	if err != nil {
 		return err
 	}

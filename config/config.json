@@ -29,9 +29,9 @@
   "Mail": {
     "Host": "smtp.gmail.com",
     "Port": 465,
-    "User": "genie201207@gmail.com",
+    "User": "",
     "Password": "",
-    "Sender": "genie201207@gmail.com",
+    "Sender": "",
     "Content": {
       "Subject": "테스트",
       "Path": {
