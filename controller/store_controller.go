@@ -102,4 +102,6 @@ func (StoreController) Delete(ctx echo.Context) error {
 	err = service2.StoreService().Delete(ctx.Request().Context(), storeNo)
 
 	return ctx.NoContent(http.StatusOK)
+
+	// 핫픽스 테스트 => 다른 파일
 }
