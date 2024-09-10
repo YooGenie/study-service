@@ -50,6 +50,6 @@ func main() {
 	log.Info("study Service Server Started: Port=" + config.Config.HttpPort)
 	e.Start(":" + config.Config.HttpPort)
 
-	// 데브를 고쳐봤다.
+	// 핫픽스 테스트
 
 }
